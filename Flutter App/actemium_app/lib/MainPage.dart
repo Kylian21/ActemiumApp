@@ -1,13 +1,23 @@
+import 'dart:async';
+
 import 'package:actemium_app/mainPageTile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
-class MainPage extends StatelessWidget{
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
 
-  final listviewExample = List<String>.generate(
-    5, 
-    (i) => "AA 00${i+1} AA",
-  );
+class _MainPageState extends State<MainPage> {
+  FlutterBlue flutterBlue = FlutterBlue.instance;
+
+  StreamSubscription<ScanResult> scanSubScription;
+
+  List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
+
+  BluetoothCharacteristic targetCharacteristic;
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +29,23 @@ class MainPage extends StatelessWidget{
       body: Column(
         children: <Widget>[
           IconButton(
-            icon : Icon(Icons.autorenew),
+            icon: Icon(Icons.autorenew),
             iconSize: 60,
             color: Colors.green[300],
-            onPressed: (){},
+            onPressed: () {
+              setState(() {
+                bluetoothStartScan();
+              });
+            },
           ),
           Text("Appuyer pour rafaichir"),
           Flexible(
-              child: ListView.builder(
-              itemCount: listviewExample.length,
-              itemBuilder: (context, index){
-                return MainPageTile(text: listviewExample[index],);
+            child: ListView.builder(
+              itemCount: deviceList.length,
+              itemBuilder: (context, index) {
+                return MainPageTile(
+                  text: deviceList[index].id.toString(),
+                );
               },
             ),
           ),
@@ -37,5 +53,12 @@ class MainPage extends StatelessWidget{
         ],
       ),
     );
+  }
+
+  void bluetoothStartScan() {
+    scanSubScription =
+        flutterBlue.scan(timeout: Duration(seconds: 4)).listen((scanResult) {
+      deviceList.add(scanResult.device);
+    });
   }
 }
