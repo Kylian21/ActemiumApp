@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:actemium_app/mainPageTile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    checkBluetooth();
+  }
+
   FlutterBlue flutterBlue = FlutterBlue.instance;
 
   StreamSubscription<ScanResult> scanSubScription;
@@ -34,7 +38,7 @@ class _MainPageState extends State<MainPage> {
             color: Colors.green[300],
             onPressed: () {
               setState(() {
-                bluetoothStartScan();
+                checkBluetooth();
               });
             },
           ),
@@ -44,7 +48,7 @@ class _MainPageState extends State<MainPage> {
               itemCount: deviceList.length,
               itemBuilder: (context, index) {
                 return MainPageTile(
-                  text: deviceList[index].id.toString(),
+                  text: deviceList[index].name,
                 );
               },
             ),
@@ -53,6 +57,32 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
+  }
+
+  void checkBluetooth() async {
+    bool isAvailable = await flutterBlue.isAvailable;
+    bool isOn = await flutterBlue.isOn;
+    if (!isAvailable) {
+      return showDialog(
+          context: context,
+          child: AlertDialog(
+            title: Text("Votre appareil n'est pas compatible"),
+            content: Text(
+                "Vous ne disposez pas d'un appareil possédant la fonctionnalité à jour du bluetooth indispensable pour utiliser l'application."),
+          ));
+    }
+    else if(!isOn){
+      return showDialog(
+          context: context,
+          child: AlertDialog(
+            title: Text("Le Bluetooth est désactivé"),
+            content: Text(
+                "Veuillez activer le bluetooth"),
+          ));
+    }
+    else{
+      bluetoothStartScan();
+    }
   }
 
   void bluetoothStartScan() {
