@@ -94,12 +94,13 @@ class _MainPageState extends State<MainPage> {
                 child: Text('Activer'),
               )));
     } else {
+      flutterBlue.stopScan();
       bluetoothStartScan();
     }
   }
 
-  _jumpToSetting() {
-    SystemSetting.goto(SettingTarget.BLUETOOTH);
+  _jumpToSetting(){
+      SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
 
   void bluetoothStartScan() {
