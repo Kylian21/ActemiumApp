@@ -3,6 +3,7 @@ import 'package:actemium_app/mainPageTile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:system_setting/system_setting.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -49,6 +50,7 @@ class _MainPageState extends State<MainPage> {
               itemBuilder: (context, index) {
                 return MainPageTile(
                   text: deviceList[index].name,
+                  device: deviceList[index],
                 );
               },
             ),
@@ -76,13 +78,18 @@ class _MainPageState extends State<MainPage> {
           context: context,
           child: AlertDialog(
             title: Text("Le Bluetooth est désactivé"),
-            content: Text(
-                "Veuillez activer le bluetooth"),
+            content: RaisedButton(
+              onPressed: _jumpToSetting,
+              child: Text('Activer'),
+            )
           ));
     }
     else{
       bluetoothStartScan();
     }
+  }
+  _jumpToSetting(){
+    SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
 
   void bluetoothStartScan() {
