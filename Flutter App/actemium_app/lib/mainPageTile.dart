@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MainPageTile extends StatelessWidget {
   final String text;
   final TextStyle mystyle = new TextStyle(
-    fontSize: 40,
+    fontSize: 20,
   );
 
   MainPageTile({Key key, @required this.text}) : super(key: key);

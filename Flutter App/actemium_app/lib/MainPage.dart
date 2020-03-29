@@ -16,12 +16,17 @@ class _MainPageState extends State<MainPage> {
   }
 
   FlutterBlue flutterBlue = FlutterBlue.instance;
-
-  StreamSubscription<ScanResult> scanSubScription;
-
-  List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-
+  //StreamSubscription<ScanResult> scanSubScription;
+  final StreamController<List<String>> _streamController =
+      StreamController<List<String>>.broadcast();
+  static final List<String> deviceList = new List<String>();
   BluetoothCharacteristic targetCharacteristic;
+
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +49,21 @@ class _MainPageState extends State<MainPage> {
           ),
           Text("Appuyer pour rafaichir"),
           Flexible(
-            child: ListView.builder(
-              itemCount: deviceList.length,
-              itemBuilder: (context, index) {
-                return MainPageTile(
-                  text: deviceList[index].name,
-                );
-              },
-            ),
+            child: StreamBuilder<List<String>>(
+                stream: _streamController.stream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>> snapshot) {
+                  return !snapshot.hasData
+                      ? MainPageTile(text: "Appuyer sur le bouton rafraichir pour recevoir",)
+                      : ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return MainPageTile(
+                              text: snapshot.data[index],
+                            );
+                          },
+                        );
+                }),
           ),
           Text("Sélectionner une benne sur laquelle vous connecter")
         ],
@@ -86,9 +98,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   void bluetoothStartScan() {
-    scanSubScription =
-        flutterBlue.scan(timeout: Duration(seconds: 4)).listen((scanResult) {
-      deviceList.add(scanResult.device);
+        flutterBlue.scan(timeout: Duration(seconds: 10)).listen((scanResult) {
+      if (deviceList.indexOf(scanResult.device.id.toString()) == -1) {
+        deviceList.add(scanResult.device.id.toString());
+      }
+      _streamController.sink.add(deviceList);
     });
   }
 }
