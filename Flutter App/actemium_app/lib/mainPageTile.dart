@@ -6,7 +6,7 @@ class MainPageTile extends StatelessWidget {
   final String text;
   final BluetoothDevice device;
   final TextStyle mystyle = new TextStyle(
-    fontSize: 40,
+    fontSize: 20,
   );
 
   MainPageTile({Key key, @required this.text, @required this.device}) : super(key: key);
