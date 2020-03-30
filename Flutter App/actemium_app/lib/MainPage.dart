@@ -11,7 +11,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
+class _MainPageState extends State<MainPage> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
   final StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
@@ -19,8 +19,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    //checkBluetooth();
+    checkBluetooth();
     super.initState();
   }
 
@@ -31,34 +30,30 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      setState(() {
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.red[900],
-        title: Text("Menu Principal"),
+        title: Text(
+          "Appairage Bluetooth",
+          textScaleFactor: 1.3,
+        ),
       ),
       body: Column(
         children: <Widget>[
-          StreamBuilder(
-            stream: _streamController.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-              switch(snapshot.connectionState){
-                case ConnectionState.none:
-                  return Text("Erreur de connection");
-                case ConnectionState.done:
-                  return IconButton(icon: Icon(Icons.check,color: Colors.green,), onPressed: null);
-                  break;
-                case ConnectionState.waiting:
-                  return IconButton(
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: StreamBuilder(
+              stream: _streamController.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    return Text("Erreur de connection");
+                  case ConnectionState.done:
+                  case ConnectionState.waiting:
+                    return Column(children: <Widget>[
+                      IconButton(
                         icon: Icon(Icons.autorenew),
                         iconSize: 60,
                         color: Colors.green[300],
@@ -67,13 +62,17 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                             checkBluetooth();
                           });
                         },
-                      );
-                  break;
-                case ConnectionState.active:
-                  return SpinKitCircle(color: null);
-                  break;
-              }      
-            },
+                      ),
+                      Text("Appuyer pour rafraichir",
+                          style: TextStyle(color: Colors.grey[700])),
+                    ]);
+                    break;
+                  case ConnectionState.active:
+                    return SpinKitRing(color: Colors.green[300]);
+                    break;
+                }
+              },
+            ),
           ),
           Flexible(
             child: StreamBuilder<List<BluetoothDevice>>(
@@ -81,7 +80,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<BluetoothDevice>> snapshot) {
                   return !snapshot.hasData
-                      ? Text("Appuyer sur le bouton rafraichir pour recevoir")
+                      ? Container()
                       : ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
@@ -93,8 +92,16 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                         );
                 }),
           ),
-          Text("Sélectionner une benne sur laquelle vous connecter")
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "Sélectionner une benne sur laquelle vous connecter",
+          textScaleFactor: 1.5,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.grey[700]),
+        ),
       ),
     );
   }
@@ -134,7 +141,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         deviceList.add(scanResult.device);
       }
       _streamController.sink.add(deviceList);
-    },onDone: ((){print("Stream done");dispose();})
-    );
+    }, onDone: (() {
+      print("Stream done");
+      dispose();
+    }));
   }
 }
