@@ -3,34 +3,39 @@ import 'package:actemium_app/mainPageTile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:system_setting/system_setting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:system_setting/system_setting.dart';
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  @override
-  void initState() {
-    super.initState();
-    scanningLogo = true;
-    checkBluetooth();
-  }
-
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   FlutterBlue flutterBlue = FlutterBlue.instance;
-  //StreamSubscription<ScanResult> scanSubScription;
   final StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-  BluetoothCharacteristic targetCharacteristic;
-  bool scanningLogo = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    //checkBluetooth();
+    super.initState();
+  }
 
   @override
   void dispose() {
     _streamController.close();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+      });
+    }
   }
 
   @override
@@ -42,30 +47,41 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Column(
         children: <Widget>[
-          !scanningLogo
-          ?Column(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.autorenew),
-                iconSize: 60,
-                color: Colors.green[300],
-                onPressed: () {
-                  setState(() {
-                    checkBluetooth();
-                  });
-                },
-              ),
-              Text("Appuyer pour rafaichir"),
-            ],
-          )
-          :SpinKitRing(color: Colors.green[300],),
+          StreamBuilder(
+            stream: _streamController.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+              switch(snapshot.connectionState){
+                case ConnectionState.none:
+                  return Text("Erreur de connection");
+                case ConnectionState.done:
+                  return IconButton(icon: Icon(Icons.check,color: Colors.green,), onPressed: null);
+                  break;
+                case ConnectionState.waiting:
+                  return IconButton(
+                        icon: Icon(Icons.autorenew),
+                        iconSize: 60,
+                        color: Colors.green[300],
+                        onPressed: () {
+                          setState(() {
+                            checkBluetooth();
+                          });
+                        },
+                      );
+                  break;
+                case ConnectionState.active:
+                  return SpinKitCircle(color: null);
+                  break;
+              }      
+            },
+          ),
           Flexible(
             child: StreamBuilder<List<BluetoothDevice>>(
                 stream: _streamController.stream,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<BluetoothDevice>> snapshot) {
                   return !snapshot.hasData
-                      ? Container()
+                      ? Text("Appuyer sur le bouton rafraichir pour recevoir")
                       : ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
@@ -104,23 +120,21 @@ class _MainPageState extends State<MainPage> {
                 child: Text('Activer'),
               )));
     } else {
-      flutterBlue.stopScan();
-      scanningLogo = true;
       bluetoothStartScan();
     }
   }
 
-  _jumpToSetting(){
-      SystemSetting.goto(SettingTarget.BLUETOOTH);
+  _jumpToSetting() {
+    SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
 
   void bluetoothStartScan() {
-    flutterBlue.scan(timeout: Duration(seconds: 5)).listen((scanResult) {
+    flutterBlue.scan(timeout: Duration(seconds: 10)).listen((scanResult) {
       if (deviceList.indexOf(scanResult.device) == -1) {
         deviceList.add(scanResult.device);
       }
       _streamController.sink.add(deviceList);
-    },onDone: ((){setState((){scanningLogo = false;});})
+    },onDone: ((){print("Stream done");dispose();})
     );
   }
 }
