@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
-  final StreamController<List<BluetoothDevice>> _streamController =
+  StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
 
@@ -25,7 +25,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
-    _streamController.close();
     super.dispose();
   }
 
@@ -62,23 +61,18 @@ class _MainPageState extends State<MainPage> {
                             checkBluetooth();
                           });
                         },
-                      ),
-                      Text("Appuyer pour rafraichir",
-                          style: TextStyle(color: Colors.grey[700])),
-                    ]);
-                    break;
-                  case ConnectionState.active:
-                    return SpinKitRing(color: Colors.green[300]);
-                    break;
-                }
-              },
-            ),
+                      );
+                  break;
+                case ConnectionState.active:
+                  return SpinKitCircle(color: null);
+                  break;
+              }      
+            },
           ),
           Flexible(
-            child: StreamBuilder<List<BluetoothDevice>>(
+            child: StreamBuilder(
                 stream: _streamController.stream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+                builder: (BuildContext context, snapshot) {
                   return !snapshot.hasData
                       ? Container()
                       : ListView.builder(
@@ -141,9 +135,7 @@ class _MainPageState extends State<MainPage> {
         deviceList.add(scanResult.device);
       }
       _streamController.sink.add(deviceList);
-    }, onDone: (() {
-      print("Stream done");
-      dispose();
-    }));
+    },onDone: ((){print("Stream done");dispose();})
+    );
   }
 }
