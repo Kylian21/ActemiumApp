@@ -6,11 +6,12 @@ import 'package:flutter_blue/flutter_blue.dart';
 class MainPageTile extends StatelessWidget {
   final String text;
   final BluetoothDevice device;
+  final FlutterBlue flutterBlue;
   final TextStyle mystyle = new TextStyle(
     fontSize: 20,
   );
 
-  MainPageTile({Key key, @required this.text, @required this.device}) : super(key: key);
+  MainPageTile({Key key, @required this.text, @required this.device, @required this.flutterBlue }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,12 @@ class MainPageTile extends StatelessWidget {
         throw e;
       }
     }
-    
+  }
+
+  discoverServices() async{
+    List<BluetoothService> services = await device.discoverServices();
+    services.forEach((service){
+      print(service.toString());
+    }); 
   }
 }
