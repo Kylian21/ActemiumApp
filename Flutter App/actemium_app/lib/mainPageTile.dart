@@ -52,11 +52,4 @@ class MainPageTile extends StatelessWidget {
       }
     }
   }
-
-  discoverServices() async{
-    List<BluetoothService> services = await device.discoverServices();
-    services.forEach((service){
-      print(service.toString());
-    }); 
-  }
 }
