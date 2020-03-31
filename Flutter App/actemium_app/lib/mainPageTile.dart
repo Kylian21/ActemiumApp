@@ -43,7 +43,7 @@ class MainPageTile extends StatelessWidget {
   void bluetoothConnect(BuildContext context)async{
     try{
       await device.connect();
-      print("Connection established with device {${device.name}");
+      print("Connection established with device {${device.name}}");
       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DeviceServicesPage(device: device)));
     }
     catch (e){

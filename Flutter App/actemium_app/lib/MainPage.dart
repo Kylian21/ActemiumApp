@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:actemium_app/mainPageTile.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -16,10 +17,11 @@ class _MainPageState extends State<MainPage> {
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
+  var myScrollController;
 
   @override
   void initState() {
-    //checkBluetooth();
+    checkBluetooth();
     super.initState();
   }
 
@@ -86,15 +88,19 @@ class _MainPageState extends State<MainPage> {
                   }
                   return !snapshot.hasData
                       ? Container()
-                      : ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                              return MainPageTile(
-                                text: snapshot.data[index].name,
-                                device: snapshot.data[index],
-                              );
-                          },
-                        );
+                      : DraggableScrollbar.semicircle(
+                        controller: myScrollController,
+                        alwaysVisibleScrollThumb: true,
+                          child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                                return MainPageTile(
+                                  text: snapshot.data[index].name,
+                                  device: snapshot.data[index],
+                                );
+                            },
+                          ),
+                      );
                 }),
           ),
         ],
