@@ -17,7 +17,7 @@ class MainPageTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: InkWell(
-        onTap: (){bluetoothConnect(context);},
+        onTap: (){bluetoothConnect();},
         child: Card(
           elevation: 4,
           color: Colors.grey[400],
