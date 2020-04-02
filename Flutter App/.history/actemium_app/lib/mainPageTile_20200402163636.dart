@@ -21,6 +21,7 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    print(provider.cardState);
 
     return Padding(
       key: myKey,
@@ -31,7 +32,7 @@ class MainPageTile extends StatelessWidget {
           which it will rebuild the cards and change the state of the
           unamed one.*/
 
-          provider.cardState = myKey;
+          provider.setcardState = myKey;
           //bluetoothConnect(context);
         },
         child: Card(

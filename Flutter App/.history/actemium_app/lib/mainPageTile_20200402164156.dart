@@ -21,6 +21,7 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    print(provider.cardState);
 
     return Padding(
       key: myKey,

@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:actemium_app/MainPageProvider.dart';
 import 'package:actemium_app/mainPageTile.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:system_setting/system_setting.dart';
 
 class MainPage extends StatefulWidget {
@@ -32,89 +34,93 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.red[900],
-        title: Text(
-          "Appairage Bluetooth",
-          textScaleFactor: 1.3,
-        ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: StreamBuilder(
-              stream: _streamController.stream,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return Text("Erreur de connection");
-                  case ConnectionState.done:
-                  case ConnectionState.waiting:
-                    return Column(children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.autorenew),
-                        iconSize: 60,
-                        color: Colors.green[300],
-                        onPressed: () {
-                          setState(() {
-                            checkBluetooth();
-                          });
-                        },
-                      ),
-                      Text("Appuyer pour rafraichir",
-                          style: TextStyle(color: Colors.grey[700])),
-                    ]);
-                    break;
-                  case ConnectionState.active:
-                    return SpinKitRing(color: Colors.green[300]);
-                    break;
-                }
-              },
-            ),
+    return ChangeNotifierProvider(
+      create: (context) => MainPageProvider(),
+          child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.red[900],
+          title: Text(
+            "Appairage Bluetooth",
+            textScaleFactor: 1.3,
           ),
-          new Flexible(
-            child: StreamBuilder<List<BluetoothDevice>>(
+        ),
+        body: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: StreamBuilder(
                 stream: _streamController.stream,
-                initialData: [],
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<BluetoothDevice>> snapshot) {
-                  if (!snapshot.hasData) {
-                    print("there is no data incommming yet");
-                  } else {
-                    print("there is data incomming");
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  final provider = Provider.of<MainPageProvider>(context);
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return Text("Erreur de connection");
+                    case ConnectionState.done:
+                    case ConnectionState.waiting:
+                      return Column(children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.autorenew),
+                          iconSize: 60,
+                          color: Colors.green[300],
+                          onPressed: () {
+                            setState(() {
+                              provider.cardState = null;
+                              checkBluetooth();
+                            });
+                          },
+                        ),
+                        Text("Appuyer pour rafraichir",
+                            style: TextStyle(color: Colors.grey[700])),
+                      ]);
+                      break;
+                    case ConnectionState.active:
+                      return SpinKitRing(color: Colors.green[300]);
+                      break;
                   }
-                  return !snapshot.hasData
-                      ? Container()
-                      : DraggableScrollbar.semicircle(
+                },
+              ),
+            ),
+            new Flexible(
+              child: StreamBuilder<List<BluetoothDevice>>(
+                  stream: _streamController.stream,
+                  initialData: [],
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+                    return !snapshot.hasData
+                        ? Container()
+                        : DraggableScrollbar.semicircle(
                           controller: myScrollController,
                           alwaysVisibleScrollThumb: true,
                           child: ListView.separated(
                             controller: myScrollController,
-                            itemCount: snapshot.data.length,
+                            itemCount: 15, //snapshot.data.length,
                             separatorBuilder: (context, index) => Divider(),
                             itemBuilder: (context, index) {
                               return MainPageTile(
+                                  text: "WH - 00$index - TH",
+                                  device: null,
+                                  flutterBlue: null);
+                              /*return MainPageTile(
                                 text: snapshot.data[index].name,
                                 device: snapshot.data[index],
                                 flutterBlue: flutterBlue,
-                              );
+                              );*/
                             },
                           ),
                         );
-                }),
+                  }),
+            ),
+          ],
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Sélectionner une benne sur laquelle vous connecter",
+            textScaleFactor: 1.5,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey[700]),
           ),
-        ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          "Sélectionner une benne sur laquelle vous connecter",
-          textScaleFactor: 1.5,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey[700]),
         ),
       ),
     );

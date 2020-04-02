@@ -21,30 +21,23 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    print(provider.cardState);
 
     return Padding(
       key: myKey,
       padding: const EdgeInsets.only(bottom: 5),
       child: InkWell(
         onTap: () {
-          /*when the card is selected we provide the key to the provider
-          which it will rebuild the cards and change the state of the
-          unamed one.*/
-
-          provider.cardState = myKey;
+          //when the card is selected we provide the key to the provider
+          //which it will rebuild the cards and change the state of the
+          //unamed one.
+          if (provider.cardState == null) {
+            provider.setcardState = myKey;
+          }
           //bluetoothConnect(context);
         },
         child: Card(
-          shape: provider.cardState == myKey
-              ? new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.red, width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0))
-              : new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
-          elevation: provider.cardState == myKey || provider.cardState == null
-                    ?5 
-                    :2,
+          elevation: 4,
           color: provider.cardState == myKey || provider.cardState == null
               ? Colors.grey[400]
               : Colors.grey[200],

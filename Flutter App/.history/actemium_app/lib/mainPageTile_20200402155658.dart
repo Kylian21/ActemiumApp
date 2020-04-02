@@ -21,6 +21,7 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    print(provider.cardState);
 
     return Padding(
       key: myKey,
@@ -30,21 +31,13 @@ class MainPageTile extends StatelessWidget {
           /*when the card is selected we provide the key to the provider
           which it will rebuild the cards and change the state of the
           unamed one.*/
-
-          provider.cardState = myKey;
+          if (provider.cardState == null /*if the provider have never been initialized*/) {
+            provider.setcardState = myKey;
+          }
           //bluetoothConnect(context);
         },
         child: Card(
-          shape: provider.cardState == myKey
-              ? new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.red, width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0))
-              : new RoundedRectangleBorder(
-                  side: new BorderSide(color: Colors.grey[400], width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
-          elevation: provider.cardState == myKey || provider.cardState == null
-                    ?5 
-                    :2,
+          elevation: 4,
           color: provider.cardState == myKey || provider.cardState == null
               ? Colors.grey[400]
               : Colors.grey[200],
