@@ -24,9 +24,16 @@ class DeviceServicesPage extends StatelessWidget {
                   itemCount: s.length,
                   itemBuilder: (context, index) {
                     List<BluetoothCharacteristic> c = s[index].characteristics;
-                    return Text(
-                            '0x${s[index].uuid.toString().toUpperCase().substring(4, 8)}');
-                        
+                    return ExpansionTile(
+                        title: Text(
+                            '0x${s[index].uuid.toString().toUpperCase().substring(4, 8)}'),
+                        children: <Widget>[ListView.builder(
+                          itemCount: c.length,
+                          itemBuilder: (context,index){
+                            return Text("${c[index].properties.toString()}");
+                          }
+                        )]
+                      );
                   });
             } else {
               return CircularProgressIndicator(

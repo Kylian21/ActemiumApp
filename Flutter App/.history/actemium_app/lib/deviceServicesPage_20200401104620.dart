@@ -21,12 +21,12 @@ class DeviceServicesPage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               List<BluetoothService> s = snapshot.data;
               return ListView.builder(
-                  itemCount: s.length,
+                  itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    List<BluetoothCharacteristic> c = s[index].characteristics;
-                    return Text(
-                            '0x${s[index].uuid.toString().toUpperCase().substring(4, 8)}');
-                        
+                    return InkWell(
+                        onTap: ,
+                        child: Text(
+                            '0x${s[index].uuid.toString().toUpperCase().substring(4, 8)}'));
                   });
             } else {
               return CircularProgressIndicator(

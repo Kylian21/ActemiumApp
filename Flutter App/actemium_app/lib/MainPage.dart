@@ -17,11 +17,11 @@ class _MainPageState extends State<MainPage> {
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-  var myScrollController;
+  ScrollController myScrollController = new ScrollController();
 
   @override
   void initState() {
-    checkBluetooth();
+    //checkBluetooth();
     super.initState();
   }
 
@@ -89,18 +89,21 @@ class _MainPageState extends State<MainPage> {
                   return !snapshot.hasData
                       ? Container()
                       : DraggableScrollbar.semicircle(
-                        controller: myScrollController,
-                        alwaysVisibleScrollThumb: true,
-                          child: ListView.builder(
+                          controller: myScrollController,
+                          alwaysVisibleScrollThumb: true,
+                          child: ListView.separated(
+                            controller: myScrollController,
                             itemCount: snapshot.data.length,
+                            separatorBuilder: (context, index) => Divider(),
                             itemBuilder: (context, index) {
-                                return MainPageTile(
-                                  text: snapshot.data[index].name,
-                                  device: snapshot.data[index],
-                                );
+                              return MainPageTile(
+                                text: snapshot.data[index].name,
+                                device: snapshot.data[index],
+                                flutterBlue: flutterBlue,
+                              );
                             },
                           ),
-                      );
+                        );
                 }),
           ),
         ],
