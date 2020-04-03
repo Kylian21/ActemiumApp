@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
-          child: Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.red[900],
@@ -90,38 +90,50 @@ class _MainPageState extends State<MainPage> {
                     return !snapshot.hasData
                         ? Container()
                         : DraggableScrollbar.semicircle(
-                          controller: myScrollController,
-                          alwaysVisibleScrollThumb: true,
-                          child: ListView.separated(
                             controller: myScrollController,
-                            itemCount: 15, //snapshot.data.length,
-                            separatorBuilder: (context, index) => Divider(),
-                            itemBuilder: (context, index) {
-                              return MainPageTile(
-                                  text: "WH - 00$index - TH",
-                                  device: null,
-                                  flutterBlue: null);
-                              /*return MainPageTile(
+                            alwaysVisibleScrollThumb: true,
+                            child: ListView.separated(
+                              controller: myScrollController,
+                              itemCount: 15, //snapshot.data.length,
+                              separatorBuilder: (context, index) => Divider(),
+                              itemBuilder: (context, index) {
+                                return MainPageTile(
+                                    text: "WH - 00$index - TH",
+                                    device: null,
+                                    flutterBlue: null);
+                                /*return MainPageTile(
                                 text: snapshot.data[index].name,
                                 device: snapshot.data[index],
                                 flutterBlue: flutterBlue,
                               );*/
-                            },
-                          ),
-                        );
+                              },
+                            ),
+                          );
                   }),
             ),
           ],
         ),
+        floatingActionButton:
+            Consumer<MainPageProvider>(builder: (context, provider, _) {
+          if (provider.cardState != null) {
+            return FloatingActionButton.extended(
+              onPressed: null,
+              label: Text("Connexion en cours"),
+              icon: Icon(Icons.bluetooth_searching),
+            );
+          }else{
+            return FloatingActionButton(onPressed: null, backgroundColor: Colors.orangeAccent,);
+          }
+        }),
+
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Sélectionner une benne sur laquelle vous connecter",
-            textScaleFactor: 1.5,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey[700]),
-          ),
-        ),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Sélectionner une benne sur laquelle vous connecter",
+              textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey[700]),
+            )),
       ),
     );
   }
