@@ -1,9 +1,10 @@
 import 'package:actemium_app/MainPageProvider.dart';
-import 'package:actemium_app/deviceServicesPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
+
+import 'commandsPage.dart';
 
 class MainPageTile extends StatelessWidget {
   final String text;
@@ -33,6 +34,7 @@ class MainPageTile extends StatelessWidget {
 
           provider.cardState = myKey;
           //bluetoothConnect(context);
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommandsPage(deviceName : text)));
         },
         child: Card(
           shape: provider.cardState == myKey
@@ -83,13 +85,10 @@ class MainPageTile extends StatelessWidget {
     try {
       await device.connect();
       print("Connection established with device {${device.name}}");
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  DeviceServicesPage(device: device)));
-    } catch (e) {
-      if (e.code != "alreadyConnected") {
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommandsPage(deviceName : text)));
+    }
+    catch (e){
+      if(e.code != "alreadyConnected"){
         throw e;
       }
     }

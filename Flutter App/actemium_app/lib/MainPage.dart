@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  FlutterBlue flutterBlue = FlutterBlue.instance;
+  //FlutterBlue flutterBlue = FlutterBlue.instance;
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                           onPressed: () {
                             setState(() {
                               provider.cardState = null;
-                              checkBluetooth();
+                              //checkBluetooth();
                             });
                           },
                         ),
@@ -138,7 +138,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void checkBluetooth() async {
+  /*void checkBluetooth() async {
     bool isAvailable = await flutterBlue.isAvailable;
     bool isOn = await flutterBlue.isOn;
     if (!isAvailable) {
@@ -181,5 +181,5 @@ class _MainPageState extends State<MainPage> {
       _streamController =
           new StreamController<List<BluetoothDevice>>.broadcast();
     }));
-  }
+  }*/
 }
