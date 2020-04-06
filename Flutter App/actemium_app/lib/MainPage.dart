@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  //FlutterBlue flutterBlue = FlutterBlue.instance;
+  FlutterBlue flutterBlue = FlutterBlue.instance;
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
@@ -37,108 +37,136 @@ class _MainPageState extends State<MainPage> {
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.red[900],
-          title: Text(
-            "Appairage Bluetooth",
-            textScaleFactor: 1.3,
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            elevation: 0,
+            title: Text(
+              "Appairage Bluetooth",
+              textScaleFactor: 1.3,
+              style: TextStyle(color: Colors.black),
+            ),
           ),
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: StreamBuilder(
-                stream: _streamController.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  final provider = Provider.of<MainPageProvider>(context);
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return Text("Erreur de connection");
-                    case ConnectionState.done:
-                    case ConnectionState.waiting:
-                      return Column(children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.autorenew),
-                          iconSize: 60,
-                          color: Colors.green[300],
-                          onPressed: () {
-                            setState(() {
-                              provider.cardState = null;
-                              //checkBluetooth();
-                            });
-                          },
-                        ),
-                        Text("Appuyer pour rafraichir",
-                            style: TextStyle(color: Colors.grey[700])),
-                      ]);
-                      break;
-                    case ConnectionState.active:
-                      return SpinKitRing(color: Colors.green[300]);
-                      break;
-                  }
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(color: Colors.grey[100]),
+            child: Stack(
+              alignment:
+                  Alignment(Alignment.center.x, Alignment.center.y - 0.5),
+              children: <Widget>[
+                new Container(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: StreamBuilder<List<BluetoothDevice>>(
+                      stream: _streamController.stream,
+                      initialData: [],
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+                        return !snapshot.hasData
+                            ? Container()
+                            : DraggableScrollbar.semicircle(
+                                controller: myScrollController,
+                                alwaysVisibleScrollThumb: true,
+                                child: ListView.builder(
+                                  controller: myScrollController,
+                                  itemCount: 15, //snapshot.data.length,
+                                  itemBuilder: (context, index) {
+                                    return MainPageTile(
+                                        text: "WH - 00$index - TH",
+                                        device: null,
+                                        flutterBlue: null);
+                                    /*return MainPageTile(
+                                  text: snapshot.data[index].name,
+                                  device: snapshot.data[index],
+                                  flutterBlue: flutterBlue,
+                                );*/
+                                  },
+                                ),
+                              );
+                      }),
+                ),
+              ],
+            ),
+          ),
+          floatingActionButton:
+              Consumer<MainPageProvider>(builder: (context, provider, _) {
+            if (provider.cardState != null) {
+              return FloatingActionButton.extended(
+                backgroundColor: Colors.blueGrey,
+                onPressed: () {
+                  provider.cardState = null;
                 },
-              ),
-            ),
-            new Flexible(
-              child: StreamBuilder<List<BluetoothDevice>>(
+                label: Text("Connexion en cours"),
+                icon: Icon(Icons.bluetooth_searching),
+              );
+            } else {
+              return StreamBuilder(
                   stream: _streamController.stream,
-                  initialData: [],
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<BluetoothDevice>> snapshot) {
-                    return !snapshot.hasData
-                        ? Container()
-                        : DraggableScrollbar.semicircle(
-                            controller: myScrollController,
-                            alwaysVisibleScrollThumb: true,
-                            child: ListView.separated(
-                              controller: myScrollController,
-                              itemCount: 15, //snapshot.data.length,
-                              separatorBuilder: (context, index) => Divider(),
-                              itemBuilder: (context, index) {
-                                return MainPageTile(
-                                    text: "WH - 00$index - TH",
-                                    device: null,
-                                    flutterBlue: null);
-                                /*return MainPageTile(
-                                text: snapshot.data[index].name,
-                                device: snapshot.data[index],
-                                flutterBlue: flutterBlue,
-                              );*/
-                              },
-                            ),
-                          );
-                  }),
-            ),
-          ],
-        ),
-        floatingActionButton:
-            Consumer<MainPageProvider>(builder: (context, provider, _) {
-          if (provider.cardState != null) {
-            return FloatingActionButton.extended(
-              onPressed: null,
-              label: Text("Connexion en cours"),
-              icon: Icon(Icons.bluetooth_searching),
-            );
-          }else{
-            return FloatingActionButton(onPressed: null, backgroundColor: Colors.orangeAccent,);
-          }
-        }),
-
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Sélectionner une benne sur laquelle vous connecter",
-              textScaleFactor: 1.5,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey[700]),
-            )),
-      ),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return FloatingActionButton.extended(
+                            onPressed: null,
+                            label: Text("Aucune connexion Bluetooth!"));
+                        break;
+                      case ConnectionState.active:
+                        return FloatingActionButton(
+                          onPressed: null,
+                          backgroundColor: Colors.blueGrey,
+                          child: SpinKitRing(
+                            color: Colors.white,
+                          ),
+                        );
+                        break;
+                      default:
+                        return FloatingActionButton.extended(
+                          onPressed: () {
+                            provider.cardState = null;
+                            checkBluetooth();
+                          },
+                          label: Text(
+                            "Appuyez pour rafraîchir",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                              side: BorderSide(color: Colors.blue[900])),
+                          icon: Icon(
+                            Icons.autorenew,
+                            color: Colors.blueGrey,
+                          ),
+                        );
+                    }
+                  });
+            }
+          }),
+          bottomNavigationBar:
+              Consumer<MainPageProvider>(builder: (context, provider, _) {
+            if (provider.cardState == null) {
+              return Container(
+                color: Colors.white,
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Sélectionner une benne sur laquelle vous connecter",
+                      textScaleFactor: 1.5,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black),
+                    )),
+              );
+            } else {
+              return Container(
+                height: 2,
+                color: Colors.white,
+              );
+            }
+          })),
     );
   }
 
-  /*void checkBluetooth() async {
+  void checkBluetooth() async {
     bool isAvailable = await flutterBlue.isAvailable;
     bool isOn = await flutterBlue.isOn;
     if (!isAvailable) {
@@ -181,5 +209,5 @@ class _MainPageState extends State<MainPage> {
       _streamController =
           new StreamController<List<BluetoothDevice>>.broadcast();
     }));
-  }*/
+  }
 }

@@ -1,10 +1,9 @@
 import 'package:actemium_app/MainPageProvider.dart';
+import 'package:actemium_app/deviceServicesPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
-
-import 'commandsPage.dart';
 
 class MainPageTile extends StatelessWidget {
   final String text;
@@ -32,20 +31,18 @@ class MainPageTile extends StatelessWidget {
 
         provider.cardState = myKey;
         //bluetoothConnect(context);
-        Future.delayed(const Duration(milliseconds: 3000), () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CommandsPage(deviceName: this.text)));
-        });
       },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         shape: RoundedRectangleBorder(
             side: BorderSide(color: Colors.blue[900]),
             borderRadius: BorderRadius.circular(10)),
-        color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
-        elevation: provider.cardState == myKey ? 8 : 2,
+        color: provider.cardState == myKey
+            ? Colors.blueGrey
+            : Colors.white,
+        elevation: provider.cardState == myKey
+          ?8
+          :2,
         child: Container(
           height: 60,
           child: Row(
@@ -55,23 +52,25 @@ class MainPageTile extends StatelessWidget {
                 padding: EdgeInsets.all(9),
                 child: Icon(
                   Icons.airport_shuttle,
-                  color: provider.cardState == myKey
-                      ? Colors.white
-                      : Colors.blueGrey,
+                  color:
+                      provider.cardState == myKey 
+                          ? Colors.white
+                          : Colors.blueGrey,
                   size: 30,
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 50),
-                  child: Text(
-                    this.text,
-                    style: TextStyle(
+                padding: EdgeInsets.only(left: 50),
+                child: Text(
+                  this.text,
+                  style: TextStyle(
                       fontSize: 25,
-                      color: provider.cardState != null
+                      color: provider.cardState == myKey
                           ? Colors.grey[100]
                           : Colors.black,
-                    ),
-                  ))
+                ),
+              )
+              )
             ],
           ),
         ),
@@ -87,7 +86,7 @@ class MainPageTile extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) =>
-                  CommandsPage(deviceName: text)));
+                  DeviceServicesPage(device: device)));
     } catch (e) {
       if (e.code != "alreadyConnected") {
         throw e;

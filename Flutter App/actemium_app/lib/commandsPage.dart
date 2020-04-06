@@ -29,6 +29,9 @@ class CommandsPage extends StatelessWidget {
                     icon: Image.asset('assets/images/bachee.png'),
                     onPressed: () {
                       provider.pageState = 2;
+                      Future.delayed(const Duration(milliseconds: 3000), () {
+                        provider.pageState = 3;
+                      });
                     },
                   ),
                 );
@@ -54,6 +57,9 @@ class CommandsPage extends StatelessWidget {
                       icon: Image.asset('assets/images/debachee.png'),
                       onPressed: () {
                         provider.pageState = 2;
+                        Future.delayed(const Duration(milliseconds: 3000), () {
+                          provider.pageState = 1;
+                        });
                       },
                     ));
                 break;
@@ -63,7 +69,10 @@ class CommandsPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.warning,size: 150,),
+                        Icon(
+                          Icons.warning,
+                          size: 150,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -93,7 +102,8 @@ class CommandsPage extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                               child: Padding(
-                                padding: const EdgeInsets.only(top:25,bottom:25,right:16,left:16),
+                                padding: const EdgeInsets.only(
+                                    top: 25, bottom: 25, right: 16, left: 16),
                                 child: FlatButton(
                                   onPressed: () {
                                     provider.pageState = 3;
@@ -143,37 +153,39 @@ class CommandsPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: provider.pageState==1
-                          ?Text(
-                            "BENNE BÂCHÉE",
-                            textScaleFactor: 2.5,
-                            style: TextStyle(
-                                color: Colors.white, letterSpacing: 5),
-                          )
-                          : provider.pageState==3
-                          ?Text(
-                            "BENNE DÉBÂCHÉE",
-                            textScaleFactor: 2.3,
-                            style: TextStyle(
-                                color: Colors.white, letterSpacing: 5),
-                          )
-                          :provider.pageState==2
-                          ?Text(
-                            "BÂCHE EN COURS DE MOUVEMENT",
-                            textAlign: TextAlign.center,
-                            textScaleFactor: 2.4,
-                            style: TextStyle(
-                                color: Colors.white, letterSpacing: 5),
-                          )
-                          :Text(
-                            "BÂCHE EN POSITION INTERMÉDIAIRE",
-                            textAlign: TextAlign.center,
-                            textScaleFactor: 2.2,
-                            style: TextStyle(
-                                color: Colors.white, letterSpacing: 5),
-                          )
-                        ),
+                            padding: const EdgeInsets.all(25),
+                            child: provider.pageState == 1
+                                ? Text(
+                                    "BENNE BÂCHÉE",
+                                    textScaleFactor: 2.5,
+                                    style: TextStyle(
+                                        color: Colors.white, letterSpacing: 5),
+                                  )
+                                : provider.pageState == 3
+                                    ? Text(
+                                        "BENNE DÉBÂCHÉE",
+                                        textScaleFactor: 2.3,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            letterSpacing: 5),
+                                      )
+                                    : provider.pageState == 2
+                                        ? Text(
+                                            "BÂCHE EN COURS DE MOUVEMENT",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 2.4,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                letterSpacing: 5),
+                                          )
+                                        : Text(
+                                            "BÂCHE EN POSITION INTERMÉDIAIRE",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 2.2,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                letterSpacing: 5),
+                                          )),
                       ),
                     ),
                   ),
@@ -181,27 +193,27 @@ class CommandsPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 90.0),
-                      child: provider.pageState==1
-                      ?Text("Appuyer sur l'icône pour débâcher",
-                          textScaleFactor: 1.8,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black))
-                      :provider.pageState==3
-                      ?Text("Appuyer sur l'icône pour bâcher",
-                          textScaleFactor: 1.8,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black))
-                      :provider.pageState==2
-                      ?Text("Appuyer sur l'icône pour stopper l'action en cours",
-                          textScaleFactor: 1.8,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black))
-                      :Text("Selectionner une action",
-                          textScaleFactor: 1.8,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black))
-                    ),
+                        padding: const EdgeInsets.only(bottom: 90.0),
+                        child: provider.pageState == 1
+                            ? Text("Appuyer sur l'icône pour débâcher",
+                                textScaleFactor: 1.8,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.black))
+                            : provider.pageState == 3
+                                ? Text("Appuyer sur l'icône pour bâcher",
+                                    textScaleFactor: 1.8,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.black))
+                                : provider.pageState == 2
+                                    ? Text(
+                                        "Appuyer sur l'icône pour stopper l'action en cours",
+                                        textScaleFactor: 1.8,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black))
+                                    : Text("Selectionner une action",
+                                        textScaleFactor: 1.8,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black))),
                   ),
                 ],
               ));
