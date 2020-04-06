@@ -21,8 +21,8 @@ class MainPageTile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MainPageProvider>(context);
-
+    final provider = Provider.of<MainPageProvider>(context,);
+    
     return InkWell(
       key: myKey,
       onTap: () {

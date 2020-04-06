@@ -33,7 +33,6 @@ class MainPageTile extends StatelessWidget {
         provider.cardState = myKey;
         //bluetoothConnect(context);
         Future.delayed(const Duration(milliseconds: 3000), () {
-          provider.cardState = null;
           Navigator.push(
               context,
               MaterialPageRoute(

@@ -21,7 +21,8 @@ class MainPageTile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MainPageProvider>(context);
+    final provider = Provider.of<MainPageProvider>(context,);
+    final provider2 = Provider.of<MainPageProvider>(context,listen: false);
 
     return InkWell(
       key: myKey,
@@ -33,7 +34,7 @@ class MainPageTile extends StatelessWidget {
         provider.cardState = myKey;
         //bluetoothConnect(context);
         Future.delayed(const Duration(milliseconds: 3000), () {
-          provider.cardState = null;
+          provider2.cardState = null;
           Navigator.push(
               context,
               MaterialPageRoute(
