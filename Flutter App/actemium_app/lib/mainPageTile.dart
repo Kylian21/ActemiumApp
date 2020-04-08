@@ -42,12 +42,12 @@ class MainPageTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.blue[900]),
+            side: BorderSide(color: Colors.blueGrey),
             borderRadius: BorderRadius.circular(10)),
         color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
         elevation: provider.cardState == myKey ? 8 : 2,
         child: Container(
-          height: 60,
+          height: MediaQuery.of(context).size.height/10,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -58,15 +58,16 @@ class MainPageTile extends StatelessWidget {
                   color: provider.cardState == myKey
                       ? Colors.white
                       : Colors.blueGrey,
-                  size: 30,
+                  size: MediaQuery.of(context).size.height/14,
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 50),
+                  padding: EdgeInsets.only(left: 40),
                   child: Text(
                     this.text,
                     style: TextStyle(
-                      fontSize: 25,
+                      letterSpacing: 3,
+                      fontSize: MediaQuery.of(context).size.height/31,
                       color: provider.cardState != null
                           ? Colors.grey[100]
                           : Colors.black,

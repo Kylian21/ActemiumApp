@@ -37,56 +37,46 @@ class _MainPageState extends State<MainPage> {
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.grey[100],
           appBar: AppBar(
             backgroundColor: Colors.white,
             centerTitle: true,
-            elevation: 0,
+            elevation: 1,
             title: Text(
               "Appairage Bluetooth",
               textScaleFactor: 1.3,
               style: TextStyle(color: Colors.black),
             ),
           ),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(color: Colors.grey[100]),
-            child: Stack(
-              alignment:
-                  Alignment(Alignment.center.x, Alignment.center.y - 0.5),
-              children: <Widget>[
-                new Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  child: StreamBuilder<List<BluetoothDevice>>(
-                      stream: _streamController.stream,
-                      initialData: [],
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<BluetoothDevice>> snapshot) {
-                        return !snapshot.hasData
-                            ? Container()
-                            : DraggableScrollbar.semicircle(
-                                controller: myScrollController,
-                                alwaysVisibleScrollThumb: true,
-                                child: ListView.builder(
-                                  controller: myScrollController,
-                                  itemCount: 15, //snapshot.data.length,
-                                  itemBuilder: (context, index) {
-                                    return MainPageTile(
-                                        text: "WH - 00$index - TH",
-                                        device: null,
-                                        flutterBlue: null);
-                                    /*return MainPageTile(
-                                  text: snapshot.data[index].name,
-                                  device: snapshot.data[index],
-                                  flutterBlue: flutterBlue,
-                                );*/
-                                  },
-                                ),
-                              );
-                      }),
-                ),
-              ],
-            ),
+          body: Padding(
+            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/40,bottom: MediaQuery.of(context).size.height/11),
+            child: StreamBuilder<List<BluetoothDevice>>(
+                stream: _streamController.stream,
+                initialData: [],
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+                  return !snapshot.hasData
+                      ? Container()
+                      : DraggableScrollbar.semicircle(
+                          controller: myScrollController,
+                          alwaysVisibleScrollThumb: true,
+                          child: ListView.builder(
+                            controller: myScrollController,
+                            itemCount: 15, //snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return MainPageTile(
+                                  text: "WH - 00$index - TH",
+                                  device: null,
+                                  flutterBlue: null);
+                              /*return MainPageTile(
+                            text: snapshot.data[index].name,
+                            device: snapshot.data[index],
+                            flutterBlue: flutterBlue,
+                          );*/
+                            },
+                          ),
+                        );
+                }),
           ),
           floatingActionButton:
               Consumer<MainPageProvider>(builder: (context, provider, _) {
@@ -132,7 +122,7 @@ class _MainPageState extends State<MainPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)),
-                              side: BorderSide(color: Colors.blue[900])),
+                              side: BorderSide(color: Colors.blueGrey)),
                           icon: Icon(
                             Icons.autorenew,
                             color: Colors.blueGrey,

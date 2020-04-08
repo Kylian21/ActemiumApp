@@ -17,6 +17,7 @@ class CommandsPage extends StatelessWidget {
         create: (context) => CommandsPageProvider(),
         child: Consumer<CommandsPageProvider>(builder: (context, provider, _) {
           final provider = Provider.of<CommandsPageProvider>(context);
+          
           Widget _buildIcon() {
             switch (provider.pageState) {
               case 1:
@@ -148,7 +149,7 @@ class CommandsPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 60),
                       child: Card(
-                        color: Colors.black,
+                        color: Colors.blueGrey,
                         elevation: 4.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
