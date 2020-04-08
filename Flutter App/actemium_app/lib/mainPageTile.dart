@@ -18,11 +18,12 @@ class MainPageTile extends StatelessWidget {
       @required this.device,
       @required this.flutterBlue})
       : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
-    final noRebuildProvider = Provider.of<MainPageProvider>(context,listen: false);
+    final noRebuildProvider =
+        Provider.of<MainPageProvider>(context, listen: false);
 
     return InkWell(
       key: myKey,
@@ -42,25 +43,27 @@ class MainPageTile extends StatelessWidget {
         });
       },
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-        shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.blueGrey),
-            borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 20,
+            vertical: MediaQuery.of(context).size.height / 100),
+        shape:
+            ContinuousRectangleBorder(side: BorderSide(color: Colors.blueGrey,width: MediaQuery.of(context).size.width / 180)),
         color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
-        elevation: provider.cardState == myKey ? 8 : 2,
+        elevation: provider.cardState == myKey ? 6 : 2,
         child: Container(
-          height: MediaQuery.of(context).size.height/10,
+          height: MediaQuery.of(context).size.height / 10,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(9),
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 60),
                 child: Icon(
                   Icons.airport_shuttle,
                   color: provider.cardState == myKey
-                      ? Colors.white
-                      : Colors.blueGrey,
-                  size: MediaQuery.of(context).size.height/14,
+                      ? Colors.grey[100]
+                      : Colors.grey[800],
+                  size: MediaQuery.of(context).size.height / 12,
                 ),
               ),
               Padding(
@@ -68,11 +71,13 @@ class MainPageTile extends StatelessWidget {
                   child: Text(
                     this.text,
                     style: TextStyle(
-                      letterSpacing: 3,
-                      fontSize: MediaQuery.of(context).size.height/31,
+                      letterSpacing: 7,
+                      fontSize: MediaQuery.of(context).size.height / 31,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Open Sans',
                       color: provider.cardState != null
                           ? Colors.grey[100]
-                          : Colors.black,
+                          : Colors.grey[800],
                     ),
                   ))
             ],

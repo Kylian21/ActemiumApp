@@ -10,8 +10,8 @@ class EditPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 10,
         leading: new IconButton(

@@ -41,17 +41,22 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
           backgroundColor: Colors.grey[100],
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            elevation: 1,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             title: Text(
               "Appairage Bluetooth",
-              textScaleFactor: 1.3,
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: MediaQuery.of(context).size.height / 17,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.italic,
+                  fontFamily: 'Open Sans'),
             ),
           ),
           body: Padding(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/40,bottom: MediaQuery.of(context).size.height/11),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 40,
+                bottom: MediaQuery.of(context).size.height / 25),
             child: StreamBuilder<List<BluetoothDevice>>(
                 stream: _streamController.stream,
                 initialData: [],
@@ -60,8 +65,9 @@ class _MainPageState extends State<MainPage> {
                   return !snapshot.hasData
                       ? Container()
                       : DraggableScrollbar.semicircle(
+                          heightScrollThumb: 60,
                           controller: myScrollController,
-                          alwaysVisibleScrollThumb: true,
+                          alwaysVisibleScrollThumb: false,
                           child: ListView.builder(
                             controller: myScrollController,
                             itemCount: 15, //snapshot.data.length,
@@ -88,7 +94,14 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () {
                   provider.cardState = null;
                 },
-                label: Text("Connexion en cours"),
+                label: Text(
+                  "Connexion en cours",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Open Sans'),
+                ),
                 icon: Icon(Icons.bluetooth_searching),
               );
             } else {
@@ -118,16 +131,19 @@ class _MainPageState extends State<MainPage> {
                           },
                           label: Text(
                             "Appuyez pour rafraîchir",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    MediaQuery.of(context).size.height / 40,
+                                fontFamily: 'Open Sans'),
                           ),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.blueGrey,
                           shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
-                              side: BorderSide(color: Colors.blueGrey)),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
                           icon: Icon(
                             Icons.autorenew,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                           ),
                         );
                     }
@@ -138,19 +154,23 @@ class _MainPageState extends State<MainPage> {
               Consumer<MainPageProvider>(builder: (context, provider, _) {
             if (provider.cardState == null) {
               return Container(
-                color: Colors.white,
+                color: Colors.grey[100],
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 50,left: MediaQuery.of(context).size.height / 30,right: MediaQuery.of(context).size.height / 30),
                     child: Text(
                       "Sélectionner une benne sur laquelle vous connecter",
-                      textScaleFactor: 1.5,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: MediaQuery.of(context).size.height / 30,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.italic,
+                          fontFamily: 'Open Sans'),
                     )),
               );
             } else {
               return Container(
-                height: 2,
+                height: MediaQuery.of(context).size.height / 30,
                 color: Colors.white,
               );
             }

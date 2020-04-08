@@ -1,16 +1,12 @@
 import 'dart:async';
-<<<<<<< Updated upstream
-import 'package:actemium_app/EditPage.dart';
-import 'package:actemium_app/IconCommandePage.dart';
-import 'package:actemium_app/MainPageProvider.dart';
-=======
 import 'package:actemium_app/IconCommandsPage.dart';
->>>>>>> Stashed changes
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:actemium_app/commandsPageProvider.dart';
+
+import 'EditPage.dart';
 
 class CommandsPage extends StatelessWidget {
   //final BluetoothDevice device;
@@ -23,40 +19,36 @@ class CommandsPage extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => CommandsPageProvider(),
         child: Consumer<CommandsPageProvider>(builder: (context, provider, _) {
-<<<<<<< Updated upstream
           return SafeArea(
               child: Material(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Stack(
               children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 11,
-                  width: MediaQuery.of(context).size.width*0.7,
-                  child: AppBar(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(10)),
-                        ),
-                    backgroundColor: Colors.white,
-                    leading: new IconButton(
-                      icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    title: Text(
-                      "$deviceName",
-                      style: TextStyle(color: Colors.black, fontSize: 30),
-                    ),
+                AppBar(
+                  elevation: 10,
+                  backgroundColor: Colors.grey[100],
+                  leading: new IconButton(
+                    icon:
+                        new Icon(Icons.arrow_back_ios, color: Colors.grey[800]),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  title: Text(
+                    "$deviceName",
+                    style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: MediaQuery.of(context).size.height / 19,
+                        fontWeight: FontWeight.w900,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'Open Sans'),
                   ),
                 ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Transform.scale(
-                    scale: 2,
+                    scale: MediaQuery.of(context).size.height / 450,
                     child: FloatingActionButton(
-                      elevation: 10,
-                      backgroundColor: Colors.grey[700],
+                      elevation: 3,
+                      backgroundColor: Colors.blueGrey,
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -66,150 +58,140 @@ class CommandsPage extends StatelessWidget {
                                       name: deviceName,
                                     )));
                       },
-                      child: Transform.translate(
-                          offset: const Offset(-5, 5),
-                          child:
-                              Icon(Icons.edit, size: 20, color: Colors.white)),
-=======
-
-          return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                centerTitle: true,
-                elevation: 0,
-                backgroundColor: Colors.white,
-                leading: new IconButton(
-                  icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                title: Text(
-                  "$deviceName",
-                  style: TextStyle(color: Colors.black),
-                  textScaleFactor: 1.3,
-                ),
-              ),
-              body: Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/16),
-                      child: Card(
-                        color: Colors.blueGrey,
-                        elevation: 4.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Padding(
-                            padding: const EdgeInsets.all(25),
-                            child: provider.pageState == 1
-                                ? Text(
-                                    "BENNE BÂCHÉE",
-                                    textScaleFactor: MediaQuery.of(context).size.height/290,
-                                    style: TextStyle(
-                                        color: Colors.white, letterSpacing: 5),
-                                  )
-                                : provider.pageState == 3
-                                    ? Text(
-                                        "BENNE DÉBÂCHÉE",
-                                        textScaleFactor: MediaQuery.of(context).size.height/290,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            letterSpacing: 5),
-                                      )
-                                    : provider.pageState == 2
-                                        ? Text(
-                                            "BÂCHE EN COURS DE MOUVEMENT",
-                                            textAlign: TextAlign.center,
-                                            textScaleFactor: MediaQuery.of(context).size.height/350,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                letterSpacing: 5),
-                                          )
-                                        : Text(
-                                            "BÂCHE EN POSITION INTERMÉDIAIRE",
-                                            textAlign: TextAlign.center,
-                                            textScaleFactor: MediaQuery.of(context).size.height/400,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                letterSpacing: 5),
-                                          )),
-                      ),
->>>>>>> Stashed changes
+                      child: Icon(Icons.edit,
+                          size: MediaQuery.of(context).size.height / 30,
+                          color: Colors.grey[100]),
                     ),
                   ),
                 ),
                 Align(
                   alignment: Alignment(
-                      Alignment.topCenter.x, Alignment.topCenter.y + 0.2),
+                      Alignment.topCenter.x, Alignment.topCenter.y + MediaQuery.of(context).size.height/2000),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 60),
+                    padding: EdgeInsets.only(right : MediaQuery.of(context).size.width/50,left: MediaQuery.of(context).size.width/50),
                     child: Card(
                       color: Colors.blueGrey,
                       elevation: 4.0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+                      shape: ContinuousRectangleBorder(),
                       child: Padding(
-                          padding: const EdgeInsets.all(25),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height/30),
                           child: provider.pageState == 1
                               ? Text(
                                   "BENNE BÂCHÉE",
-                                  textScaleFactor: 2.5,
                                   style: TextStyle(
-                                      color: Colors.white, letterSpacing: 5),
+                                    color: Colors.white,
+                                    letterSpacing: 7,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height / 20,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Open Sans',
+                                  ),
                                 )
                               : provider.pageState == 3
                                   ? Text(
                                       "BENNE DÉBÂCHÉE",
-                                      textScaleFactor: 2.3,
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          letterSpacing: 5),
+                                        color: Colors.white,
+                                        letterSpacing: 7,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height /
+                                                24,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Open Sans',
+                                      ),
                                     )
                                   : provider.pageState == 2
                                       ? Text(
                                           "BÂCHE EN COURS DE MOUVEMENT",
                                           textAlign: TextAlign.center,
-                                          textScaleFactor: 2.4,
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              letterSpacing: 5),
+                                            color: Colors.white,
+                                            letterSpacing: 7,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                30,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'Open Sans',
+                                          ),
                                         )
                                       : Text(
                                           "BÂCHE EN POSITION INTERMÉDIAIRE",
                                           textAlign: TextAlign.center,
-                                          textScaleFactor: 2.2,
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              letterSpacing: 5),
+                                            color: Colors.white,
+                                            letterSpacing: 7,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                30,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'Open Sans',
+                                          ),
                                         )),
                     ),
                   ),
                 ),
-                IconCommande(),
+                IconCommands(),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                      padding: const EdgeInsets.only(bottom: 90.0),
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 27,
+                          right: MediaQuery.of(context).size.width / 27,
+                          bottom: MediaQuery.of(context).size.height / 10),
                       child: provider.pageState == 1
-                          ? Text("Appuyer sur l'icône pour débâcher",
-                              textScaleFactor: 1.8,
+                          ? Text(
+                              "Appuyer sur l'icône pour débâcher",
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black))
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize:
+                                      MediaQuery.of(context).size.height / 30,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.italic,
+                                  fontFamily: 'Open Sans'),
+                            )
                           : provider.pageState == 3
-                              ? Text("Appuyer sur l'icône pour bâcher",
-                                  textScaleFactor: 1.8,
+                              ? Text(
+                                  "Appuyer sur l'icône pour bâcher",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.black))
+                                  style: TextStyle(
+                                      color: Colors.grey[800],
+                                      fontSize:
+                                          MediaQuery.of(context).size.height /
+                                              30,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FontStyle.italic,
+                                      fontFamily: 'Open Sans'),
+                                )
                               : provider.pageState == 2
                                   ? Text(
                                       "Appuyer sur l'icône pour stopper l'action en cours",
-                                      textScaleFactor: 1.8,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.black))
-                                  : Text("Selectionner une action",
-                                      textScaleFactor: 1.8,
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              30,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Open Sans'),
+                                    )
+                                  : Text(
+                                      "Selectionner une action",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.black))),
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              30,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Open Sans'),
+                                    )),
                 ),
               ],
             ),
