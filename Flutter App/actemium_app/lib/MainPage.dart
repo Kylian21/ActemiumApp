@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  FlutterBlue flutterBlue = FlutterBlue.instance;
+  //FlutterBlue flutterBlue = FlutterBlue.instance;
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage> {
                         return FloatingActionButton.extended(
                           onPressed: () {
                             provider.cardState = null;
-                            checkBluetooth();
+                            //checkBluetooth();
                           },
                           label: Text(
                             "Appuyez pour rafraîchir",
@@ -134,7 +134,6 @@ class _MainPageState extends State<MainPage> {
                   });
             }
           }),
-          
           bottomNavigationBar:
               Consumer<MainPageProvider>(builder: (context, provider, _) {
             if (provider.cardState == null) {
@@ -159,7 +158,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void checkBluetooth() async {
+  /*void checkBluetooth() async {
     bool isAvailable = await flutterBlue.isAvailable;
     bool isOn = await flutterBlue.isOn;
     if (!isAvailable) {
@@ -202,5 +201,5 @@ class _MainPageState extends State<MainPage> {
       _streamController =
           new StreamController<List<BluetoothDevice>>.broadcast();
     }));
-  }
+  }*/
 }

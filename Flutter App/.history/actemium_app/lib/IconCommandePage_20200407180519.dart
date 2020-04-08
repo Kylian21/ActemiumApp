@@ -20,7 +20,7 @@ class IconCommande extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: IconButton(
-            color: Colors.grey[50],
+            color: Colors.grey[100],
             iconSize: 350,
             padding: const EdgeInsets.all(8.0),
             splashColor: Colors.grey[700],

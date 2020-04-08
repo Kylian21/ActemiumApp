@@ -22,7 +22,6 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
-    final noRebuildProvider = Provider.of<MainPageProvider>(context,listen: false);
 
     return InkWell(
       key: myKey,
@@ -34,7 +33,7 @@ class MainPageTile extends StatelessWidget {
         provider.cardState = myKey;
         //bluetoothConnect(context);
         Future.delayed(const Duration(milliseconds: 3000), () {
-          noRebuildProvider.cardState = null;
+          provider.cardState = null;
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -49,7 +48,7 @@ class MainPageTile extends StatelessWidget {
         color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
         elevation: provider.cardState == myKey ? 8 : 2,
         child: Container(
-          height: MediaQuery.of(context).size.height/10,
+          height: 60,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -60,16 +59,15 @@ class MainPageTile extends StatelessWidget {
                   color: provider.cardState == myKey
                       ? Colors.white
                       : Colors.blueGrey,
-                  size: MediaQuery.of(context).size.height/14,
+                  size: 30,
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 40),
+                  padding: EdgeInsets.only(left: 50),
                   child: Text(
                     this.text,
                     style: TextStyle(
-                      letterSpacing: 3,
-                      fontSize: MediaQuery.of(context).size.height/31,
+                      fontSize: 25,
                       color: provider.cardState != null
                           ? Colors.grey[100]
                           : Colors.black,

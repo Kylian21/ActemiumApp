@@ -5,29 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class IconCommande extends StatelessWidget {
-  
-  IconCommande({Key key,}) : super(key: key);
-  
-  Timer myTimer = Timer(Duration(seconds: 3),(){});
+  IconCommande({
+    Key key,
+  }) : super(key: key);
+
+  Timer myTimer = Timer(Duration(seconds: 3), () {});
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CommandsPageProvider>(context);
-    
 
     switch (provider.pageState) {
       case 1:
         return Align(
           alignment: Alignment.center,
           child: IconButton(
-            color: Colors.grey[50],
             iconSize: 350,
             padding: const EdgeInsets.all(8.0),
             splashColor: Colors.grey[700],
             icon: Image.asset('assets/images/bachee.png'),
             onPressed: () {
               provider.pageState = 2;
-              myTimer = Timer(Duration(seconds: 3), () {
+              myTimer = new Timer(Duration(seconds: 3), () {
                 provider.pageState = 3;
               });
             },
@@ -55,10 +54,10 @@ class IconCommande extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               icon: Image.asset('assets/images/debachee.png'),
               onPressed: () {
-                myTimer = Timer(Duration(seconds: 3), () {
+                provider.pageState = 2;
+                myTimer = new Timer(Duration(seconds: 3), () {
                   provider.pageState = 1;
                 });
-                
               },
             ));
         break;
