@@ -30,6 +30,8 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     super.dispose();
+    myScrollController.dispose();
+    _streamController.done;
   }
 
   @override
@@ -132,6 +134,7 @@ class _MainPageState extends State<MainPage> {
                   });
             }
           }),
+          
           bottomNavigationBar:
               Consumer<MainPageProvider>(builder: (context, provider, _) {
             if (provider.cardState == null) {
