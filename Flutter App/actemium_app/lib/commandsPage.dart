@@ -1,7 +1,11 @@
 import 'dart:async';
+<<<<<<< Updated upstream
 import 'package:actemium_app/EditPage.dart';
 import 'package:actemium_app/IconCommandePage.dart';
 import 'package:actemium_app/MainPageProvider.dart';
+=======
+import 'package:actemium_app/IconCommandsPage.dart';
+>>>>>>> Stashed changes
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -19,6 +23,7 @@ class CommandsPage extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => CommandsPageProvider(),
         child: Consumer<CommandsPageProvider>(builder: (context, provider, _) {
+<<<<<<< Updated upstream
           return SafeArea(
               child: Material(
             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -65,6 +70,71 @@ class CommandsPage extends StatelessWidget {
                           offset: const Offset(-5, 5),
                           child:
                               Icon(Icons.edit, size: 20, color: Colors.white)),
+=======
+
+          return Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                centerTitle: true,
+                elevation: 0,
+                backgroundColor: Colors.white,
+                leading: new IconButton(
+                  icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                title: Text(
+                  "$deviceName",
+                  style: TextStyle(color: Colors.black),
+                  textScaleFactor: 1.3,
+                ),
+              ),
+              body: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/16),
+                      child: Card(
+                        color: Colors.blueGrey,
+                        elevation: 4.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Padding(
+                            padding: const EdgeInsets.all(25),
+                            child: provider.pageState == 1
+                                ? Text(
+                                    "BENNE BÂCHÉE",
+                                    textScaleFactor: MediaQuery.of(context).size.height/290,
+                                    style: TextStyle(
+                                        color: Colors.white, letterSpacing: 5),
+                                  )
+                                : provider.pageState == 3
+                                    ? Text(
+                                        "BENNE DÉBÂCHÉE",
+                                        textScaleFactor: MediaQuery.of(context).size.height/290,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            letterSpacing: 5),
+                                      )
+                                    : provider.pageState == 2
+                                        ? Text(
+                                            "BÂCHE EN COURS DE MOUVEMENT",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: MediaQuery.of(context).size.height/350,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                letterSpacing: 5),
+                                          )
+                                        : Text(
+                                            "BÂCHE EN POSITION INTERMÉDIAIRE",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: MediaQuery.of(context).size.height/400,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                letterSpacing: 5),
+                                          )),
+                      ),
+>>>>>>> Stashed changes
                     ),
                   ),
                 ),

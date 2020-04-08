@@ -20,16 +20,21 @@ class IconCommande extends StatelessWidget {
         return Align(
           alignment: Alignment.center,
           child: IconButton(
+<<<<<<< Updated upstream:Flutter App/actemium_app/lib/IconCommandePage.dart
             color: Colors.grey[50],
             iconSize: 350,
             padding: const EdgeInsets.all(8.0),
+=======
+            iconSize: MediaQuery.of(context).size.height/2,
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height/12),
+>>>>>>> Stashed changes:Flutter App/actemium_app/lib/IconCommandsPage.dart
             splashColor: Colors.grey[700],
             icon: Image.asset('assets/images/bachee.png'),
             onPressed: () {
               provider.pageState = 2;
-              myTimer = Timer(Duration(seconds: 3), () {
+              /*myTimer = Timer(Duration(seconds: 3), () {
                 provider.pageState = 3;
-              });
+              });*/
             },
           ),
         );
@@ -38,11 +43,11 @@ class IconCommande extends StatelessWidget {
         return Align(
             alignment: Alignment.center,
             child: IconButton(
-              iconSize: 350,
-              padding: const EdgeInsets.all(8.0),
+              iconSize: MediaQuery.of(context).size.height/2,
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height/12),
               icon: Image.asset('assets/images/stop.png'),
               onPressed: () {
-                myTimer.cancel();
+                //myTimer.cancel();
                 provider.pageState = 4;
               },
             ));
@@ -51,14 +56,19 @@ class IconCommande extends StatelessWidget {
         return Align(
             alignment: Alignment.center,
             child: IconButton(
-              iconSize: 350,
-              padding: const EdgeInsets.all(8.0),
+              iconSize: MediaQuery.of(context).size.height/2,
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height/12),
               icon: Image.asset('assets/images/debachee.png'),
               onPressed: () {
-                myTimer = Timer(Duration(seconds: 3), () {
+                /*myTimer = Timer(Duration(seconds: 3), () {
                   provider.pageState = 1;
+<<<<<<< Updated upstream:Flutter App/actemium_app/lib/IconCommandePage.dart
                 });
                 
+=======
+                });*/
+                provider.pageState = 2;
+>>>>>>> Stashed changes:Flutter App/actemium_app/lib/IconCommandsPage.dart
               },
             ));
         break;
@@ -76,7 +86,7 @@ class IconCommande extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Card(
-                      color: Colors.black,
+                      color: Colors.blueGrey,
                       elevation: 4.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -96,7 +106,6 @@ class IconCommande extends StatelessWidget {
                       ),
                     ),
                     Card(
-                      color: Colors.black,
                       elevation: 4.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
@@ -109,9 +118,9 @@ class IconCommande extends StatelessWidget {
                           },
                           child: Text(
                             "DÉBÂCHER",
-                            textScaleFactor: 1.3,
+                            textScaleFactor: MediaQuery.of(context).size.height/500,
                             style: TextStyle(
-                                color: Colors.white, letterSpacing: 5),
+                                color: Colors.black, letterSpacing: 5),
                           ),
                         ),
                       ),
