@@ -10,12 +10,10 @@ class EditPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: true,
-        elevation: 2,
+        elevation: 10,
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
@@ -30,40 +28,28 @@ class EditPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  decoration: BoxDecoration(
-                      border: Border(
-                    top: BorderSide(width: 2),
-                    left: BorderSide(width: 2),
-                    right: BorderSide(width: 2),
-                    bottom: BorderSide(width: 1),
-                  )),
+                  decoration: BoxDecoration(border: Border.all(width: 2)),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       "MODULE BLUETOOTH :",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 20),
                     ),
                   )),
             ),
             Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width * 0.90,
-                decoration: BoxDecoration(
-                    border: Border(
-                  top: BorderSide(width: 2),
-                  left: BorderSide(width: 2),
-                  right: BorderSide(width: 2),
-                  bottom: BorderSide(width: 1),
-                )),
+                decoration: BoxDecoration(border: Border.all(width: 2)),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Text("$deviceID", style: TextStyle(color: Colors.blueGrey ,fontSize: 20)),
+                  child: Text("$deviceID", style: TextStyle(fontSize: 20)),
                 )),
             Padding(
-              padding: const EdgeInsets.only(top: 7),
+              padding: const EdgeInsets.only(top:7),
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
                   child: TextField(
@@ -71,8 +57,7 @@ class EditPage extends StatelessWidget {
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.zero),
-                          borderSide:
-                              BorderSide(width: 2, color: Colors.black)),
+                          borderSide: BorderSide(width: 2, color: Colors.black)),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(width: 2, color: Colors.black),
                       ),
@@ -82,7 +67,7 @@ class EditPage extends StatelessWidget {
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 7.0),
+              padding: const EdgeInsets.only(top:7.0),
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
                   child: TextField(
@@ -90,8 +75,7 @@ class EditPage extends StatelessWidget {
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.zero),
-                          borderSide:
-                              BorderSide(width: 2, color: Colors.black)),
+                          borderSide: BorderSide(width: 2, color: Colors.black)),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(width: 2, color: Colors.black),
                       ),
@@ -101,11 +85,10 @@ class EditPage extends StatelessWidget {
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 7.0),
+              padding: const EdgeInsets.only(top:7.0),
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  decoration: BoxDecoration(
-                      border: Border(
+                  decoration: BoxDecoration(border: Border(
                     top: BorderSide(width: 2),
                     right: BorderSide(width: 2),
                     left: BorderSide(width: 2),
@@ -114,7 +97,7 @@ class EditPage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       "SEUIL D'INTENSITE :",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 20),
                     ),
                   )),
             ),
@@ -158,22 +141,22 @@ class EditPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 7.0),
+              padding: const EdgeInsets.only(top:7.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.90,
                 child: TextField(
-                  cursorColor: Colors.blueGrey,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.zero),
-                        borderSide: BorderSide(width: 2, color: Colors.black)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2, color: Colors.black),
+                    cursorColor: Colors.blueGrey,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.zero),
+                          borderSide: BorderSide(width: 2, color: Colors.black)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: Colors.black),
+                      ),
+                      labelText: "SENSIBILITE D'ALERTE",
+                      labelStyle: TextStyle(color: Colors.blueGrey),
                     ),
-                    labelText: "SENSIBILITE D'ALERTE",
-                    labelStyle: TextStyle(color: Colors.blueGrey),
                   ),
-                ),
               ),
             ),
           ],

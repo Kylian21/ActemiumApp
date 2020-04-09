@@ -44,7 +44,7 @@ class EditPage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       "MODULE BLUETOOTH :",
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15,fontFamily: ),
                     ),
                   )),
             ),

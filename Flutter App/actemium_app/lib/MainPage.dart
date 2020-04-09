@@ -47,7 +47,7 @@ class _MainPageState extends State<MainPage> {
               "Appairage Bluetooth",
               style: TextStyle(
                   color: Colors.grey[800],
-                  fontSize: MediaQuery.of(context).size.height / 17,
+                  fontSize: MediaQuery.of(context).size.height / 19,
                   fontWeight: FontWeight.w900,
                   fontStyle: FontStyle.italic,
                   fontFamily: 'Open Sans'),
