@@ -12,6 +12,7 @@ class EditPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomPadding: false,
       backgroundColor: Color.fromRGBO(245, 245, 230, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(245, 245, 230, 1),

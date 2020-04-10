@@ -12,6 +12,7 @@ class EditPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Color.fromRGBO(245, 245, 230, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(245, 245, 230, 1),
@@ -23,12 +24,12 @@ class EditPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Align(
+              child: Align(
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
                     decoration: BoxDecoration(
@@ -39,7 +40,7 @@ class EditPage extends StatelessWidget {
                       bottom: BorderSide(width: 1),
                     )),
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Text(
                         "MODULE BLUETOOTH :",
                         style: TextStyle(fontSize: 15),
@@ -57,12 +58,12 @@ class EditPage extends StatelessWidget {
                     bottom: BorderSide(width: 2),
                   )),
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Text("$deviceID",
                         style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
                   )),
               Padding(
-                padding: const EdgeInsets.only(top: 15.0),
+                padding: const EdgeInsets.only(top: 7.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
                     child: MyTextfield(
@@ -70,13 +71,13 @@ class EditPage extends StatelessWidget {
                     )),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 7.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
                     child: MyTextfield(text: "MOT DE PASSE")),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 7.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
                     decoration: BoxDecoration(
@@ -86,7 +87,7 @@ class EditPage extends StatelessWidget {
                       left: BorderSide(width: 2),
                     )),
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Text(
                         "SEUIL D'INTENSITE :",
                         style: TextStyle(fontSize: 15),
@@ -105,7 +106,7 @@ class EditPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 7.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
                   child: MyTextfield(text: "SENSIBILITE D'ALERTE"),
