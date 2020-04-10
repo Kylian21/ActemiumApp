@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:actemium_app/MainPageProvider.dart';
-import 'package:actemium_app/mainPageTile.dart';
+import 'package:actemium_app/MainPage/MainPageProvider.dart';
+import 'package:actemium_app/MainPage/mainPageTile.dart';
+import 'package:actemium_app/ConfigSize.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    ConfigSize().init(context);
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
@@ -47,7 +49,7 @@ class _MainPageState extends State<MainPage> {
               "Appairage Bluetooth",
               style: TextStyle(
                   color: Colors.grey[800],
-                  fontSize: MediaQuery.of(context).size.height / 19,
+                  fontSize: ConfigSize.blockSizeVertical * 5,
                   fontWeight: FontWeight.w900,
                   fontStyle: FontStyle.italic,
                   fontFamily: 'Open Sans'),
@@ -55,8 +57,8 @@ class _MainPageState extends State<MainPage> {
           ),
           body: Padding(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height / 40,
-                bottom: MediaQuery.of(context).size.height / 25),
+                top: ConfigSize.blockSizeVertical * 3,
+                bottom: ConfigSize.blockSizeVertical * 4),
             child: StreamBuilder<List<BluetoothDevice>>(
                 stream: _streamController.stream,
                 initialData: [],
@@ -98,7 +100,7 @@ class _MainPageState extends State<MainPage> {
                   "Connexion en cours",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontSize: ConfigSize.blockSizeVertical * 2,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Open Sans'),
                 ),
@@ -134,7 +136,7 @@ class _MainPageState extends State<MainPage> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize:
-                                    MediaQuery.of(context).size.height / 40,
+                                    ConfigSize.blockSizeVertical * 2,
                                 fontFamily: 'Open Sans'),
                           ),
                           backgroundColor: Colors.blueGrey,
@@ -156,13 +158,13 @@ class _MainPageState extends State<MainPage> {
               return Container(
                 color: Colors.grey[100],
                 child: Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 50,left: MediaQuery.of(context).size.height / 30,right: MediaQuery.of(context).size.height / 30),
+                    padding: EdgeInsets.only(bottom: ConfigSize.blockSizeVertical * 2,left: ConfigSize.blockSizeHorizontal * 4,right: ConfigSize.blockSizeHorizontal * 4),
                     child: Text(
                       "Sélectionner une benne sur laquelle vous connecter",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.grey[800],
-                          fontSize: MediaQuery.of(context).size.height / 30,
+                          fontSize: ConfigSize.blockSizeVertical * 2.5,
                           fontWeight: FontWeight.w600,
                           fontStyle: FontStyle.italic,
                           fontFamily: 'Open Sans'),
@@ -170,8 +172,8 @@ class _MainPageState extends State<MainPage> {
               );
             } else {
               return Container(
-                height: MediaQuery.of(context).size.height / 30,
-                color: Colors.white,
+                height: ConfigSize.blockSizeVertical * 7,
+                color: Colors.transparent,
               );
             }
           })),

@@ -1,5 +1,7 @@
-import 'package:actemium_app/MainPage.dart';
+import 'package:actemium_app/MainPage/MainPage.dart';
 import 'package:flutter/material.dart';
+
+import 'ConfigSize.dart';
 
 void main() => runApp(MyApp());
 

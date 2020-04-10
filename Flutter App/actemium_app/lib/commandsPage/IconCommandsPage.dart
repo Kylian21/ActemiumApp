@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:actemium_app/commandsPageProvider.dart';
+import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../ConfigSize.dart';
 
 class IconCommands extends StatelessWidget {
   IconCommands({
@@ -19,9 +21,8 @@ class IconCommands extends StatelessWidget {
       case 1:
         return Align(
           alignment: Alignment.center,
-          child: IconButton(
-            iconSize: MediaQuery.of(context).size.height / 2,
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height / 12),
+                  child: IconButton(
+            iconSize: ConfigSize.blockSizeVertical * 50,
             splashColor: Colors.grey[700],
             icon: Image.asset('assets/images/bachee.png'),
             onPressed: () {
@@ -37,8 +38,7 @@ class IconCommands extends StatelessWidget {
         return Align(
             alignment: Alignment.center,
             child: IconButton(
-              iconSize: MediaQuery.of(context).size.height / 2,
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 12),
+              iconSize: ConfigSize.blockSizeVertical * 50,
               icon: Image.asset('assets/images/stop.png'),
               onPressed: () {
                 //myTimer.cancel();
@@ -50,8 +50,7 @@ class IconCommands extends StatelessWidget {
         return Align(
             alignment: Alignment.center,
             child: IconButton(
-              iconSize: MediaQuery.of(context).size.height / 2,
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 12),
+              iconSize: ConfigSize.blockSizeVertical * 50,
               icon: Image.asset('assets/images/debachee.png'),
               onPressed: () {
                 /*myTimer = Timer(Duration(seconds: 3), () {
@@ -65,13 +64,14 @@ class IconCommands extends StatelessWidget {
         return Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/15),
+              padding:
+                  EdgeInsets.only(top: ConfigSize.blockSizeVertical * 5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(
                     Icons.warning,
-                    size: MediaQuery.of(context).size.height/4,
+                    size: ConfigSize.blockSizeVertical * 25,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -82,18 +82,19 @@ class IconCommands extends StatelessWidget {
                         shape: ContinuousRectangleBorder(
                             side: BorderSide(
                                 color: Colors.grey[700],
-                                width: MediaQuery.of(context).size.width / 250)),
+                                width:
+                                    ConfigSize.blockSizeHorizontal * 0.5)),
                         child: Padding(
                           padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.width / 15),
+                              ConfigSize.blockSizeHorizontal * 5.5),
                           child: FlatButton(
                             onPressed: () {
                               provider.pageState = 1;
                             },
                             child: Text(
                               "BÂCHER",
-                              textScaleFactor: 1.3,
                               style: TextStyle(
+                                fontSize: ConfigSize.blockSizeVertical*2.5,
                                   color: Colors.grey[800], letterSpacing: 5),
                             ),
                           ),
@@ -104,22 +105,22 @@ class IconCommands extends StatelessWidget {
                         shape: ContinuousRectangleBorder(
                             side: BorderSide(
                                 color: Colors.grey[700],
-                                width: MediaQuery.of(context).size.width / 250)),
+                                width:
+                                    ConfigSize.blockSizeHorizontal * 0.5)),
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.width / 15,
-                              bottom: MediaQuery.of(context).size.width / 15,
-                              right: MediaQuery.of(context).size.width / 30,
-                              left: MediaQuery.of(context).size.width / 30),
+                              top: ConfigSize.blockSizeHorizontal * 5.5,
+                              bottom: ConfigSize.blockSizeHorizontal * 5.5,
+                              right: ConfigSize.blockSizeHorizontal * 1,
+                              left: ConfigSize.blockSizeHorizontal * 1),
                           child: FlatButton(
                             onPressed: () {
                               provider.pageState = 3;
                             },
                             child: Text(
                               "DÉBÂCHER",
-                              textScaleFactor:
-                                  MediaQuery.of(context).size.height / 500,
                               style: TextStyle(
+                                fontSize: ConfigSize.blockSizeVertical*2.5,
                                   color: Colors.grey[800], letterSpacing: 5),
                             ),
                           ),

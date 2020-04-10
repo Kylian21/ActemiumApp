@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:actemium_app/IconCommandsPage.dart';
+import 'package:actemium_app/commandsPage/IconCommandsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
-import 'package:actemium_app/commandsPageProvider.dart';
+import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
+import 'package:actemium_app/EditPage.dart';
 
-import 'EditPage.dart';
+import '../ConfigSize.dart';
 
 class CommandsPage extends StatelessWidget {
   //final BluetoothDevice device;
@@ -36,7 +37,7 @@ class CommandsPage extends StatelessWidget {
                     "$deviceName",
                     style: TextStyle(
                         color: Colors.grey[800],
-                        fontSize: MediaQuery.of(context).size.height / 19,
+                        fontSize: ConfigSize.blockSizeVertical * 4.5,
                         fontWeight: FontWeight.w900,
                         fontStyle: FontStyle.italic,
                         fontFamily: 'Open Sans'),
@@ -66,15 +67,15 @@ class CommandsPage extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment(
-                      Alignment.topCenter.x, Alignment.topCenter.y + MediaQuery.of(context).size.height/2000),
+                      Alignment.topCenter.x, Alignment.topCenter.y + ConfigSize.blockSizeVertical * 0.04),
                   child: Padding(
-                    padding: EdgeInsets.only(right : MediaQuery.of(context).size.width/50,left: MediaQuery.of(context).size.width/50),
+                    padding: EdgeInsets.only(right : ConfigSize.blockSizeHorizontal * 3,left: ConfigSize.blockSizeHorizontal * 3),
                     child: Card(
                       color: Colors.blueGrey,
                       elevation: 4.0,
                       shape: ContinuousRectangleBorder(),
                       child: Padding(
-                          padding: EdgeInsets.all(MediaQuery.of(context).size.height/30),
+                          padding: EdgeInsets.all(ConfigSize.blockSizeVertical * 3),
                           child: provider.pageState == 1
                               ? Text(
                                   "BENNE BÂCHÉE",
@@ -82,7 +83,7 @@ class CommandsPage extends StatelessWidget {
                                     color: Colors.white,
                                     letterSpacing: 7,
                                     fontSize:
-                                        MediaQuery.of(context).size.height / 20,
+                                        ConfigSize.blockSizeVertical * 4,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Open Sans',
                                   ),
@@ -94,8 +95,7 @@ class CommandsPage extends StatelessWidget {
                                         color: Colors.white,
                                         letterSpacing: 7,
                                         fontSize:
-                                            MediaQuery.of(context).size.height /
-                                                24,
+                                            ConfigSize.blockSizeVertical * 3.3,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Open Sans',
                                       ),
@@ -107,10 +107,7 @@ class CommandsPage extends StatelessWidget {
                                           style: TextStyle(
                                             color: Colors.white,
                                             letterSpacing: 7,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                30,
+                                            fontSize: ConfigSize.blockSizeVertical * 3,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Open Sans',
                                           ),
@@ -121,10 +118,7 @@ class CommandsPage extends StatelessWidget {
                                           style: TextStyle(
                                             color: Colors.white,
                                             letterSpacing: 7,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                30,
+                                            fontSize: ConfigSize.blockSizeVertical * 3,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Open Sans',
                                           ),
@@ -137,9 +131,9 @@ class CommandsPage extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                       padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 27,
-                          right: MediaQuery.of(context).size.width / 27,
-                          bottom: MediaQuery.of(context).size.height / 10),
+                        left: ConfigSize.blockSizeHorizontal * 5,
+                        right: ConfigSize.blockSizeHorizontal * 5,
+                          bottom: ConfigSize.blockSizeVertical * 18),
                       child: provider.pageState == 1
                           ? Text(
                               "Appuyer sur l'icône pour débâcher",
@@ -147,7 +141,7 @@ class CommandsPage extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.grey[800],
                                   fontSize:
-                                      MediaQuery.of(context).size.height / 30,
+                                      ConfigSize.blockSizeHorizontal * 6,
                                   fontWeight: FontWeight.w600,
                                   fontStyle: FontStyle.italic,
                                   fontFamily: 'Open Sans'),
@@ -159,8 +153,7 @@ class CommandsPage extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.grey[800],
                                       fontSize:
-                                          MediaQuery.of(context).size.height /
-                                              30,
+                                          ConfigSize.blockSizeHorizontal * 6,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FontStyle.italic,
                                       fontFamily: 'Open Sans'),
@@ -171,10 +164,7 @@ class CommandsPage extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.grey[800],
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              30,
+                                          fontSize: ConfigSize.blockSizeHorizontal * 6,
                                           fontWeight: FontWeight.w600,
                                           fontStyle: FontStyle.italic,
                                           fontFamily: 'Open Sans'),
@@ -184,10 +174,7 @@ class CommandsPage extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.grey[800],
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              30,
+                                          fontSize: ConfigSize.blockSizeHorizontal * 6,
                                           fontWeight: FontWeight.w600,
                                           fontStyle: FontStyle.italic,
                                           fontFamily: 'Open Sans'),

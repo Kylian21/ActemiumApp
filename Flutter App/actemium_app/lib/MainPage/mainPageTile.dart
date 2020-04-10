@@ -1,10 +1,11 @@
-import 'package:actemium_app/MainPageProvider.dart';
+import 'package:actemium_app/MainPage/MainPageProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
+import 'package:actemium_app/commandsPage/commandsPage.dart';
 
-import 'commandsPage.dart';
+import '../ConfigSize.dart';
 
 class MainPageTile extends StatelessWidget {
   final String text;
@@ -44,35 +45,35 @@ class MainPageTile extends StatelessWidget {
       },
       child: Card(
         margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 20,
-            vertical: MediaQuery.of(context).size.height / 100),
+            horizontal: ConfigSize.blockSizeHorizontal * 3,
+            vertical: ConfigSize.blockSizeVertical * 1.5),
         shape:
-            ContinuousRectangleBorder(side: BorderSide(color: Colors.blueGrey,width: MediaQuery.of(context).size.width / 180)),
+            ContinuousRectangleBorder(side: BorderSide(color: Colors.blueGrey,width: ConfigSize.blockSizeVertical * 0.5)),
         color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
         elevation: provider.cardState == myKey ? 6 : 2,
         child: Container(
-          height: MediaQuery.of(context).size.height / 10,
+          height: ConfigSize.blockSizeHorizontal * 24,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width / 60),
+                    left: ConfigSize.blockSizeHorizontal * 2),
                 child: Icon(
                   Icons.airport_shuttle,
                   color: provider.cardState == myKey
                       ? Colors.grey[100]
                       : Colors.grey[800],
-                  size: MediaQuery.of(context).size.height / 12,
+                  size: ConfigSize.blockSizeVertical * 8,
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 40),
+                  padding: EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 6),
                   child: Text(
                     this.text,
                     style: TextStyle(
                       letterSpacing: 7,
-                      fontSize: MediaQuery.of(context).size.height / 31,
+                      fontSize: ConfigSize.blockSizeVertical * 3.4,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Open Sans',
                       color: provider.cardState != null
