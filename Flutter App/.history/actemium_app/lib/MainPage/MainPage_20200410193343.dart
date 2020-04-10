@@ -50,7 +50,6 @@ class _MainPageState extends State<MainPage> {
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
                     floating: true,
                     pinned: true,
-                    snap: true,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",

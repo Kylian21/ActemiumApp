@@ -73,7 +73,7 @@ class MainPageTile extends StatelessWidget {
                     this.text,
                     style: TextStyle(
                       letterSpacing: 7,
-                      fontSize: ConfigSize.blockSizeVertical * 3,
+                      fontSize: ConfigSize.blockSizeVertical * 3.4,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Open Sans',
                       color: provider.cardState != null

@@ -42,35 +42,29 @@ class _MainPageState extends State<MainPage> {
       create: (context) => MainPageProvider(),
       child: Scaffold(
           backgroundColor: Colors.grey[100],
-          body: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    expandedHeight: ConfigSize.blockSizeVertical * 30,
-                    floating: true,
-                    pinned: true,
-                    snap: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                        "Appairage Bluetooth",
-                        style: TextStyle(
-                            color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical *3,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'Open Sans'),
-                      ),
-                      background: Image.asset('assets/images/BENALU.png'),
-                    ),
-                  ),
-                ];
-              },
-              body: Padding(
-                padding: EdgeInsets.only(
-                    top: ConfigSize.blockSizeVertical * 3,
-                    bottom: ConfigSize.blockSizeVertical * 4),
-                child: StreamBuilder<List<BluetoothDevice>>(
+          body: CustomScrollView(slivers: <Widget>[
+            SliverAppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              pinned: true,
+              floating: true,
+              expandedHeight: ConfigSize.blockSizeVertical * 30,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(color: Colors.blue),
+                title: Text(
+                  "Appairage Bluetooth",
+                  style: TextStyle(
+                      color: Colors.grey[800],
+                      fontSize: ConfigSize.blockSizeVertical * 4,
+                      fontWeight: FontWeight.w900,
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'Open Sans'),
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(<Widget>[
+                StreamBuilder<List<BluetoothDevice>>(
                     stream: _streamController.stream,
                     initialData: [],
                     builder: (BuildContext context,
@@ -89,16 +83,18 @@ class _MainPageState extends State<MainPage> {
                                       text: "WH - 00$index - TH",
                                       device: null,
                                       flutterBlue: null);
-                                  /*return MainPageTile( 
-                              text: snapshot.data[index].name, 
-                              device: snapshot.data[index], 
-                              flutterBlue: flutterBlue, 
-                            );*/
+                                  /*return MainPageTile(
+                                text: snapshot.data[index].name,
+                                device: snapshot.data[index],
+                                flutterBlue: flutterBlue,
+                              );*/
                                 },
                               ),
                             );
                     }),
-              )),
+              ]),
+            ),
+          ]),
           floatingActionButton:
               Consumer<MainPageProvider>(builder: (context, provider, _) {
             if (provider.cardState != null) {

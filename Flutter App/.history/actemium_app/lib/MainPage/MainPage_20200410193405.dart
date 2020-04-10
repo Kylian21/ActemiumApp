@@ -49,8 +49,7 @@ class _MainPageState extends State<MainPage> {
                   SliverAppBar(
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
                     floating: true,
-                    pinned: true,
-                    snap: true,
+                    pinned: false,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",

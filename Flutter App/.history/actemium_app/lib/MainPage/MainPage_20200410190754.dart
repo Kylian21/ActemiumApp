@@ -42,63 +42,65 @@ class _MainPageState extends State<MainPage> {
       create: (context) => MainPageProvider(),
       child: Scaffold(
           backgroundColor: Colors.grey[100],
-          body: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    expandedHeight: ConfigSize.blockSizeVertical * 30,
-                    floating: true,
-                    pinned: true,
-                    snap: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                        "Appairage Bluetooth",
-                        style: TextStyle(
-                            color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical *3,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'Open Sans'),
-                      ),
-                      background: Image.asset('assets/images/BENALU.png'),
-                    ),
-                  ),
-                ];
-              },
-              body: Padding(
-                padding: EdgeInsets.only(
-                    top: ConfigSize.blockSizeVertical * 3,
-                    bottom: ConfigSize.blockSizeVertical * 4),
-                child: StreamBuilder<List<BluetoothDevice>>(
-                    stream: _streamController.stream,
-                    initialData: [],
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<BluetoothDevice>> snapshot) {
-                      return !snapshot.hasData
-                          ? Container()
-                          : DraggableScrollbar.semicircle(
-                              heightScrollThumb: 60,
-                              controller: myScrollController,
-                              alwaysVisibleScrollThumb: false,
-                              child: ListView.builder(
-                                controller: myScrollController,
-                                itemCount: 15, //snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  return MainPageTile(
-                                      text: "WH - 00$index - TH",
-                                      device: null,
-                                      flutterBlue: null);
+          body:NestedScrollView( 
+            headerSliverBuilder: 
+                (BuildContext context, bool innerBoxIsScrolled) { 
+              return <Widget>[ 
+                SliverAppBar( 
+                  expandedHeight: ConfigSize.blockSizeVertical * 3, 
+                  floating: false, 
+                  pinned: true, 
+                  flexibleSpace: FlexibleSpaceBar( 
+                    title: Text( 
+                      "Appairage Bluetooth", 
+                      style: TextStyle( 
+                          color: Colors.grey[800], 
+                          fontSize: ConfigSize.blockSizeVertical * 5, 
+                          fontWeight: FontWeight.w900, 
+                          fontStyle: FontStyle.italic, 
+                          fontFamily: 'Open Sans'), 
+                    ), 
+                    background: Image.asset('BENALU.png'), 
+                  ), 
+                ), 
+              ]; 
+            }, 
+            body: Consumer<MainPageProvider>(builder: (context, provider, _) { 
+              return Padding( 
+                padding: EdgeInsets.only( 
+                    top: ConfigSize.blockSizeVertical * 3, 
+                    bottom: ConfigSize.blockSizeVertical * 4), 
+                child: StreamBuilder<List<BluetoothDevice>>( 
+                    stream: _streamController.stream, 
+                    initialData: [], 
+                    builder: (BuildContext context, 
+                        AsyncSnapshot<List<BluetoothDevice>> snapshot) { 
+                      return !snapshot.hasData 
+                          ? Container() 
+                          : DraggableScrollbar.semicircle( 
+                              heightScrollThumb: 60, 
+                              controller: myScrollController, 
+                              alwaysVisibleScrollThumb: false, 
+                              child: ListView.builder( 
+                                controller: myScrollController, 
+                                itemCount: 15, //snapshot.data.length, 
+                                itemBuilder: (context, index) { 
+                                  return MainPageTile( 
+                                      text: "WH - 00$index - TH", 
+                                      device: null, 
+                                      flutterBlue: null); 
                                   /*return MainPageTile( 
                               text: snapshot.data[index].name, 
                               device: snapshot.data[index], 
                               flutterBlue: flutterBlue, 
-                            );*/
-                                },
-                              ),
-                            );
-                    }),
-              )),
+                            );*/ 
+                                }, 
+                              ), 
+                            ); 
+                    }), 
+              ); 
+            }), 
+          ),
           floatingActionButton:
               Consumer<MainPageProvider>(builder: (context, provider, _) {
             if (provider.cardState != null) {

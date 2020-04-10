@@ -48,9 +48,8 @@ class _MainPageState extends State<MainPage> {
                 return <Widget>[
                   SliverAppBar(
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
-                    floating: true,
+                    floating: false,
                     pinned: true,
-                    snap: true,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",

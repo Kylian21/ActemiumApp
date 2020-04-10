@@ -46,22 +46,25 @@ class _MainPageState extends State<MainPage> {
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                  SliverAppBar(
-                    expandedHeight: ConfigSize.blockSizeVertical * 30,
-                    floating: true,
-                    pinned: true,
-                    snap: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                        "Appairage Bluetooth",
-                        style: TextStyle(
-                            color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical *3,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'Open Sans'),
+                  SliverOverlapAbsorber(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
+                    child: SliverAppBar(
+                      expandedHeight: ConfigSize.blockSizeVertical * 30,
+                      floating: false,
+                      pinned: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: Text(
+                          "Appairage Bluetooth",
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: ConfigSize.blockSizeVertical * 3,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Open Sans'),
+                        ),
+                        background: Image.asset('assets/images/BENALU.png'),
                       ),
-                      background: Image.asset('assets/images/BENALU.png'),
                     ),
                   ),
                 ];

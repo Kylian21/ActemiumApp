@@ -48,20 +48,19 @@ class _MainPageState extends State<MainPage> {
                 return <Widget>[
                   SliverAppBar(
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
-                    floating: true,
+                    floating: false,
                     pinned: true,
-                    snap: true,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",
                         style: TextStyle(
                             color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical *3,
+                            fontSize: ConfigSize.blockSizeVertical * 5,
                             fontWeight: FontWeight.w900,
                             fontStyle: FontStyle.italic,
                             fontFamily: 'Open Sans'),
                       ),
-                      background: Image.asset('assets/images/BENALU.png'),
+                      background: Image.asset('BENALU.png'),
                     ),
                   ),
                 ];
