@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
-import 'package:actemium_app/MainPage/MyBottomNavBar.dart';
-import 'package:actemium_app/MainPage/MyFAB.dart';
 import 'package:actemium_app/MainPage/mainPageTile.dart';
 import 'package:actemium_app/ConfigSize.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:system_setting/system_setting.dart';
 
@@ -40,16 +39,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    dragScrolController = new ScrollController(
-        initialScrollOffset: ConfigSize.blockSizeVertical * 30);
+    dragScrolController = new ScrollController(initialScrollOffset: ConfigSize.blockSizeVertical * 30);
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
           backgroundColor: Colors.grey[100],
           body: NestedScrollView(
-              controller: myScrollController,
+            controller: myScrollController,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
+                    
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.white,
@@ -102,10 +101,97 @@ class _MainPageState extends State<MainPage> {
                             );
                     }),
               )),
-          floatingActionButton: MyFAB(
-            streamController: _streamController,
-          ),
-          bottomNavigationBar: MyBottomNavBar()),
+          floatingActionButton:
+              Consumer<MainPageProvider>(builder: (context, provider, _) {
+            if (provider.cardState != null) {
+              return FloatingActionButton.extended(
+                backgroundColor: Colors.blueGrey,
+                onPressed: () {
+                  provider.cardState = null;
+                },
+                label: Text(
+                  "Connexion en cours",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: ConfigSize.blockSizeVertical * 2,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Open Sans'),
+                ),
+                icon: Icon(Icons.bluetooth_searching),
+              );
+            } else {
+              return StreamBuilder(
+                  stream: _streamController.stream,
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return FloatingActionButton.extended(
+                            onPressed: null,
+                            label: Text("Aucune connexion Bluetooth!"));
+                        break;
+                      case ConnectionState.active:
+                        return FloatingActionButton(
+                          onPressed: null,
+                          backgroundColor: Colors.blueGrey,
+                          child: SpinKitRing(
+                            color: Colors.white,
+                          ),
+                        );
+                        break;
+                      default:
+                        return FloatingActionButton.extended(
+                          onPressed: () {
+                            provider.cardState = null;
+                            //checkBluetooth();
+                          },
+                          label: Text(
+                            "Appuyez pour rafraîchir",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ConfigSize.blockSizeVertical * 2,
+                                fontFamily: 'Open Sans'),
+                          ),
+                          backgroundColor: Colors.blueGrey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          icon: Icon(
+                            Icons.autorenew,
+                            color: Colors.white,
+                          ),
+                        );
+                    }
+                  });
+            }
+          }),
+          bottomNavigationBar:
+              Consumer<MainPageProvider>(builder: (context, provider, _) {
+            if (provider.cardState == null) {
+              return Container(
+                color: Colors.grey[100],
+                child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: ConfigSize.blockSizeVertical * 2,
+                        left: ConfigSize.blockSizeHorizontal * 4,
+                        right: ConfigSize.blockSizeHorizontal * 4),
+                    child: Text(
+                      "Sélectionner une benne sur laquelle vous connecter",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: ConfigSize.blockSizeVertical * 2.5,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.italic,
+                          fontFamily: 'Open Sans'),
+                    )),
+              );
+            } else {
+              return Container(
+                height: ConfigSize.blockSizeVertical * 7,
+                color: Colors.transparent,
+              );
+            }
+          })),
     );
   }
 
