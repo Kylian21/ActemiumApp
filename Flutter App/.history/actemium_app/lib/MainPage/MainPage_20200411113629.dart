@@ -20,8 +20,7 @@ class _MainPageState extends State<MainPage> {
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-  final ScrollController myScrollController = new ScrollController();
-  ScrollController dragScrolController = new ScrollController();
+  ScrollController myScrollController = new ScrollController();
 
   @override
   void initState() {
@@ -39,27 +38,25 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    dragScrolController = new ScrollController(initialScrollOffset: ConfigSize.blockSizeVertical * 30);
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
           backgroundColor: Colors.grey[100],
           body: NestedScrollView(
-            controller: myScrollController,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
-                    
                 return <Widget>[
                   SliverAppBar(
-                    backgroundColor: Colors.white,
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
+                    floating: false,
                     pinned: true,
+                    snap: true,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",
                         style: TextStyle(
                             color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical * 3,
+                            fontSize: ConfigSize.blockSizeVertical *3,
                             fontWeight: FontWeight.w900,
                             fontStyle: FontStyle.italic,
                             fontFamily: 'Open Sans'),
@@ -82,9 +79,10 @@ class _MainPageState extends State<MainPage> {
                           ? Container()
                           : DraggableScrollbar.semicircle(
                               heightScrollThumb: 60,
-                              //controller: dragScrollController,
+                              controller: myScrollController,
                               alwaysVisibleScrollThumb: false,
                               child: ListView.builder(
+                                controller: myScrollController,
                                 itemCount: 15, //snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   return MainPageTile(

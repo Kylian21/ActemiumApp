@@ -48,7 +48,6 @@ class _MainPageState extends State<MainPage> {
             controller: myScrollController,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
-                    
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.white,

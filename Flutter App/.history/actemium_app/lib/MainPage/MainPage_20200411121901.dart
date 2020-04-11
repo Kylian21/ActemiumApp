@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
   final ScrollController myScrollController = new ScrollController();
-  ScrollController dragScrolController = new ScrollController();
+  final ScrollController dragScrollController = new ScrollController();
 
   @override
   void initState() {
@@ -39,7 +39,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    dragScrolController = new ScrollController(initialScrollOffset: ConfigSize.blockSizeVertical * 30);
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
@@ -48,7 +47,6 @@ class _MainPageState extends State<MainPage> {
             controller: myScrollController,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
-                    
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.white,
@@ -82,9 +80,10 @@ class _MainPageState extends State<MainPage> {
                           ? Container()
                           : DraggableScrollbar.semicircle(
                               heightScrollThumb: 60,
-                              //controller: dragScrollController,
+                              controller: myScrollController.,
                               alwaysVisibleScrollThumb: false,
                               child: ListView.builder(
+                                //controller: myScrollController,
                                 itemCount: 15, //snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   return MainPageTile(
