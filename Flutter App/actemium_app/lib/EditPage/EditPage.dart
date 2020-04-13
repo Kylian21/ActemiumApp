@@ -1,4 +1,4 @@
-import 'package:actemium_app/TextfieldWidget.dart';
+import 'package:actemium_app/EditPage/EditTextfieldWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -65,7 +65,7 @@ class EditPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
-                    child: MyTextfield(
+                    child: EditTextfield(
                       text: "NOM MODULE",
                     )),
               ),
@@ -73,7 +73,7 @@ class EditPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
-                    child: MyTextfield(text: "MOT DE PASSE")),
+                    child: EditTextfield(text: "MOT DE PASSE")),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
@@ -97,9 +97,9 @@ class EditPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.90,
                 child: Row(
                   children: <Widget>[
-                    Expanded(child: MyTextfield(text: "BACHAGE")),
+                    Expanded(child: EditTextfield(text: "BACHAGE")),
                     Expanded(
-                      child: MyTextfield(text: "DEBACHAGE"),
+                      child: EditTextfield(text: "DEBACHAGE"),
                     ),
                   ],
                 ),
@@ -108,7 +108,7 @@ class EditPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  child: MyTextfield(text: "SENSIBILITE D'ALERTE"),
+                  child: EditTextfield(text: "SENSIBILITE D'ALERTE"),
                 ),
               ),
             ],

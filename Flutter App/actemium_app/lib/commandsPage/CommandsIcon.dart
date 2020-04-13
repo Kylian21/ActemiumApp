@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
+import 'package:actemium_app/CommandsPage/CommandsPageProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../ConfigSize.dart';
 
-class IconCommands extends StatelessWidget {
-  IconCommands({
+class CommandsIcon extends StatelessWidget {
+  CommandsIcon({
     Key key,
   }) : super(key: key);
 

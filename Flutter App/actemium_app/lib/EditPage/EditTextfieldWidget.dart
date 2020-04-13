@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyTextfield extends StatelessWidget {
+class EditTextfield extends StatelessWidget {
   final String text;
 
-  MyTextfield({Key key, this.text}) : super(key: key);
+  EditTextfield({Key key, this.text}) : super(key: key);
 
   Widget build(BuildContext context) {
     return TextField(

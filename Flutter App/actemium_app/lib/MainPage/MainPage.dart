@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
-import 'package:actemium_app/MainPage/MyBottomNavBar.dart';
-import 'package:actemium_app/MainPage/MyFAB.dart';
-import 'package:actemium_app/MainPage/mainPageTile.dart';
+import 'package:actemium_app/MainPage/MainBottomNavBar.dart';
+import 'package:actemium_app/MainPage/MainFAB.dart';
+import 'package:actemium_app/MainPage/MainPageTile.dart';
 import 'package:actemium_app/ConfigSize.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,11 +68,12 @@ class _MainPageState extends State<MainPage> {
                       )
                     ],
                     flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
                       title: Text(
                         "Appairage Bluetooth",
                         style: TextStyle(
                             color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical * 3,
+                            fontSize: ConfigSize.blockSizeVertical * 3.5,
                             fontWeight: FontWeight.w900,
                             fontStyle: FontStyle.italic,
                             fontFamily: 'Open Sans'),
