@@ -21,8 +21,7 @@ class _MainPageState extends State<MainPage> {
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-  final ScrollController myScrollController = new ScrollController();
-  ScrollController dragScrolController = new ScrollController();
+  final ScrollController myScrollController = new ScrollController(initialScrollOffset: 0.0);
 
   @override
   void initState() {
@@ -37,11 +36,16 @@ class _MainPageState extends State<MainPage> {
     _streamController.done;
   }
 
+  void listviewAnimation() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      myScrollController.animateTo(MediaQuery.of(context).size.height/2,
+          duration: Duration(seconds: 1), curve: Curves.ease);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    dragScrolController = new ScrollController(
-        initialScrollOffset: ConfigSize.blockSizeVertical * 30);
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
       child: Scaffold(
@@ -55,6 +59,13 @@ class _MainPageState extends State<MainPage> {
                     backgroundColor: Colors.white,
                     expandedHeight: ConfigSize.blockSizeVertical * 30,
                     pinned: true,
+                    actions: <Widget>[
+                      IconButton(
+                        color: Colors.blueGrey,
+                        icon: Icon(Icons.device_unknown),
+                        onPressed: (){listviewAnimation();},
+                      )
+                    ],
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         "Appairage Bluetooth",
@@ -81,24 +92,19 @@ class _MainPageState extends State<MainPage> {
                         AsyncSnapshot<List<BluetoothDevice>> snapshot) {
                       return !snapshot.hasData
                           ? Container()
-                          : DraggableScrollbar.semicircle(
-                              heightScrollThumb: 60,
-                              //controller: dragScrollController,
-                              alwaysVisibleScrollThumb: true,
-                              child: ListView.builder(
-                                itemCount: 15, //snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  return MainPageTile(
-                                      text: "WH - 00$index - TH",
-                                      device: null,
-                                      flutterBlue: null);
-                                  /*return MainPageTile( 
-                              text: snapshot.data[index].name, 
-                              device: snapshot.data[index], 
-                              flutterBlue: flutterBlue, 
-                            );*/
-                                },
-                              ),
+                          : ListView.builder(
+                              itemCount: 15, //snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return MainPageTile(
+                                    text: "WH - 00$index - TH",
+                                    device: null,
+                                    flutterBlue: null);
+                                /*return MainPageTile( 
+            text: snapshot.data[index].name, 
+            device: snapshot.data[index], 
+            flutterBlue: flutterBlue, 
+              );*/
+                              },
                             );
                     }),
               )),

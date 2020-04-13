@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../ConfigSize.dart';
 
 class IconCommands extends StatelessWidget {
