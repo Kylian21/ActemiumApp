@@ -1,4 +1,5 @@
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
+import 'package:actemium_app/commandsPage/ScaleTransition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -23,8 +24,6 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
-    final noRebuildProvider =
-        Provider.of<MainPageProvider>(context, listen: false);
 
     return InkWell(
       key: myKey,
@@ -36,11 +35,12 @@ class MainPageTile extends StatelessWidget {
         provider.cardState = myKey;
         //bluetoothConnect(context);
         Future.delayed(const Duration(milliseconds: 3000), () {
-          noRebuildProvider.cardState = null;
+          //this methode will reset to null the provider but not notify the
+          //listener to avoid useless
+          provider.resetProvider();
           Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => CommandsPage(deviceName: this.text)));
+              ScaleRoute(page: CommandsPage(deviceName: this.text)));
         });
       },
       child: Card(

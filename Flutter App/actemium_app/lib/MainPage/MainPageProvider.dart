@@ -10,4 +10,5 @@ class MainPageProvider with ChangeNotifier{
     _cardKey = newValue;
     notifyListeners();
   }
+   void resetProvider() => _cardKey = null;
 }

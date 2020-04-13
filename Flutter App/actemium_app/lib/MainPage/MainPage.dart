@@ -26,6 +26,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     //checkBluetooth();
+    MainPageProvider().resetProvider();
     super.initState();
   }
 
