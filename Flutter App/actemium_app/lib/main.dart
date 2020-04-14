@@ -1,7 +1,8 @@
 import 'package:actemium_app/MainPage/MainPage.dart';
+import 'package:actemium_app/MainPage/MainPageProvider.dart';
+import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
 import 'package:flutter/material.dart';
-
-import 'ConfigSize.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,13 +10,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MainPageProvider(),),
+        ChangeNotifierProvider(create: (_) => CommandsPageProvider())
+      ],
+          child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MainPage(),
       ),
-      home: MainPage(),
     );
   }
 }

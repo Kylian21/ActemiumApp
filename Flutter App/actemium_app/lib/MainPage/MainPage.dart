@@ -4,7 +4,7 @@ import 'package:actemium_app/MainPage/MainBottomNavBar.dart';
 import 'package:actemium_app/MainPage/MainFAB.dart';
 import 'package:actemium_app/MainPage/MainPageTile.dart';
 import 'package:actemium_app/ConfigSize.dart';
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
+import 'package:actemium_app/Tools/FadeOnScroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -21,7 +21,8 @@ class _MainPageState extends State<MainPage> {
   StreamController<List<BluetoothDevice>> _streamController =
       StreamController<List<BluetoothDevice>>.broadcast();
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
-  final ScrollController myScrollController = new ScrollController(initialScrollOffset: 0.0);
+  final ScrollController myScrollController =
+      new ScrollController(initialScrollOffset: 0.0);
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
 
   void listviewAnimation() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      myScrollController.animateTo(MediaQuery.of(context).size.height/2,
+      myScrollController.animateTo(MediaQuery.of(context).size.height,
           duration: Duration(seconds: 1), curve: Curves.ease);
     });
   }
@@ -58,25 +59,30 @@ class _MainPageState extends State<MainPage> {
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.white,
-                    expandedHeight: ConfigSize.blockSizeVertical * 30,
+                    expandedHeight: ConfigSize.blockSizeVertical * 20,
                     pinned: true,
                     actions: <Widget>[
                       IconButton(
                         color: Colors.blueGrey,
                         icon: Icon(Icons.device_unknown),
-                        onPressed: (){listviewAnimation();},
+                        onPressed: () {
+                          listviewAnimation();
+                        },
                       )
                     ],
                     flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: true,
-                      title: Text(
-                        "Appairage Bluetooth",
-                        style: TextStyle(
-                            color: Colors.grey[800],
-                            fontSize: ConfigSize.blockSizeVertical * 3.5,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'Open Sans'),
+                      title: FadeOnScroll(
+                        scrollController: myScrollController,
+                        fullOpacityOffset: 180,
+                        child: Text(
+                          "Appairage Bluetooth",
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: ConfigSize.blockSizeVertical * 3,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Open Sans'),
+                        ),
                       ),
                       background: Image.asset('assets/images/BENALU.png'),
                     ),

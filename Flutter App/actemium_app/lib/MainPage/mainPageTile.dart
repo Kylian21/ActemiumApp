@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:actemium_app/CommandsPage/CommandsPage.dart';
-
 import '../ConfigSize.dart';
 
 class MainPageTile extends StatelessWidget {
