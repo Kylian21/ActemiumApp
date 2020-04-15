@@ -1,4 +1,4 @@
-import 'package:actemium_app/EditPage/EditTextfieldWidget.dart';
+import 'package:actemium_app/EditPage/EditFormWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -6,15 +6,17 @@ import 'package:flutter_blue/flutter_blue.dart';
 class EditPage extends StatelessWidget {
   final String name;
   final String deviceID;
+  List<GlobalKey> formKeyList= new List<GlobalKey>(5);
+  List<int> formKeyListIndex = new List<int>(5);
 
   EditPage({Key key, @required this.name, @required this.deviceID})
       : super(key: key);
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 245, 230, 1),
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(245, 245, 230, 1),
+        backgroundColor: Colors.grey[100],
         elevation: 0,
         centerTitle: true,
         leading: new IconButton(
@@ -65,15 +67,21 @@ class EditPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
-                    child: EditTextfield(
+                    child: EditFormWidget(
                       text: "NOM MODULE",
+                      formKey: formKeyList[0],
+                      formKeyIndex: 0,
                     )),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Container(
                     width: MediaQuery.of(context).size.width * 0.90,
-                    child: EditTextfield(text: "MOT DE PASSE")),
+                    child: EditFormWidget(
+                      text: "MOT DE PASSE",
+                      formKey: formKeyList[1],
+                      formKeyIndex: 1,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
@@ -97,9 +105,18 @@ class EditPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.90,
                 child: Row(
                   children: <Widget>[
-                    Expanded(child: EditTextfield(text: "BACHAGE")),
                     Expanded(
-                      child: EditTextfield(text: "DEBACHAGE"),
+                        child: EditFormWidget(
+                      text: "BACHAGE",
+                      formKey: formKeyList[2],
+                      formKeyIndex: 2,
+                    )),
+                    Expanded(
+                      child: EditFormWidget(
+                        text: "DEBACHAGE",
+                        formKey: formKeyList[3],
+                        formKeyIndex: 3,
+                      ),
                     ),
                   ],
                 ),
@@ -108,7 +125,11 @@ class EditPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  child: EditTextfield(text: "SENSIBILITE D'ALERTE"),
+                  child: EditFormWidget(
+                    text: "SENSIBILITE D'ALERTE",
+                    formKey: formKeyList[4],
+                    formKeyIndex: 4,
+                  ),
                 ),
               ),
             ],

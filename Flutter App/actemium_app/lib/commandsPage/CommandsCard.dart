@@ -14,7 +14,7 @@ class CommandsCard extends StatelessWidget {
     final _provider = Provider.of<CommandsPageProvider>(context);
       return Align(
         alignment: Alignment(Alignment.topCenter.x,
-            Alignment.topCenter.y + ConfigSize.blockSizeVertical * 0.04),
+            Alignment.topCenter.y + ConfigSize.blockSizeVertical * 0.03),
         child: Padding(
           padding: EdgeInsets.only(
               right: ConfigSize.blockSizeHorizontal * 3,
