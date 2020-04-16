@@ -1,3 +1,5 @@
+import 'package:actemium_app/BluetoothParameters.dart';
+import 'package:actemium_app/EditPage/SlideBottomRoute.dart';
 import 'package:actemium_app/commandsPage/CommandsCard.dart';
 import 'package:actemium_app/commandsPage/CommandsIcon.dart';
 import 'package:actemium_app/commandsPage/CommandsInstruction.dart';
@@ -12,12 +14,20 @@ import '../ConfigSize.dart';
 class CommandsPage extends StatelessWidget {
   //final BluetoothDevice device;
   final String deviceName;
+  BluetoothParameters bleParameters;
 
-  CommandsPage({Key key, @required this.deviceName}) : super(key: key);
+  CommandsPage({Key key, 
+  @required this.deviceName,
+  //@required this.device,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    /*this.bleParameters = new BluetoothParameters(device);
+    this.bleParameters.setServices();*/
     ConfigSize().init(context);
+
     return ChangeNotifierProvider(
       create: (context) => CommandsPageProvider(),
       child: SafeArea(
@@ -58,11 +68,11 @@ class CommandsPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => EditPage(
-                            deviceID: "0a-af-ff-2b",
-                            name: deviceName,
-                          )));
+                  SlideBottomRoute(
+                      page: EditPage(
+                    deviceID: "0a-af-ff-2b",
+                    name: deviceName,
+                  )));
             },
             icon: Icon(Icons.edit,
                 size: ConfigSize.blockSizeHorizontal * 10,

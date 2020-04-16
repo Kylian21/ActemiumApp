@@ -1,4 +1,6 @@
 import 'package:actemium_app/EditPage/EditFormWidget.dart';
+import 'package:actemium_app/ConfigSize.dart';
+import 'package:actemium_app/EditPage/EditTextfieldWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -13,6 +15,7 @@ class EditPage extends StatelessWidget {
       : super(key: key);
 
   Widget build(BuildContext context) {
+    ConfigSize().init(context);
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -20,7 +23,9 @@ class EditPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: new Icon(Icons.keyboard_arrow_down,
+              size: ConfigSize.blockSizeHorizontal * 10,
+              color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),

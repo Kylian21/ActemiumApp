@@ -59,10 +59,11 @@ class _MainPageState extends State<MainPage> {
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.white,
-                    expandedHeight: ConfigSize.blockSizeVertical * 20,
+                    expandedHeight: ConfigSize.blockSizeVertical * 15,
                     pinned: true,
                     actions: <Widget>[
                       IconButton(
+                        alignment: Alignment.bottomCenter,
                         color: Colors.blueGrey,
                         icon: Icon(Icons.device_unknown),
                         onPressed: () {
@@ -73,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                     flexibleSpace: FlexibleSpaceBar(
                       title: FadeOnScroll(
                         scrollController: myScrollController,
-                        fullOpacityOffset: 180,
+                        fullOpacityOffset: 120,
                         child: Text(
                           "Appairage Bluetooth",
                           style: TextStyle(
@@ -91,7 +92,6 @@ class _MainPageState extends State<MainPage> {
               },
               body: Padding(
                 padding: EdgeInsets.only(
-                    top: ConfigSize.blockSizeVertical * 3,
                     bottom: ConfigSize.blockSizeVertical * 4),
                 child: StreamBuilder<List<BluetoothDevice>>(
                     stream: _streamController.stream,
