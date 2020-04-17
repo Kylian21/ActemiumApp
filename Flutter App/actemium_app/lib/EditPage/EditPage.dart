@@ -1,5 +1,6 @@
 import 'package:actemium_app/EditPage/EditFormWidget.dart';
 import 'package:actemium_app/ConfigSize.dart';
+//import 'package:actemium_app/EditPage/EditTextfieldWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -16,11 +17,24 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  List<GlobalKey<FormState>> formKeyList= new List<GlobalKey<FormState>>(5);
-
+  List<GlobalKey<FormState>> formKeyList = new List<GlobalKey<FormState>>(5);
   List<int> formKeyListIndex = new List<int>(5);
 
+  @override
+  void initState() {
+    super.initState();
+    for(int i=0;i<5;i++){
+      formKeyList[i]=new GlobalKey<FormState>();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
+
     ConfigSize().init(context);
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -29,17 +43,18 @@ class _EditPageState extends State<EditPage> {
         elevation: 0,
         centerTitle: true,
         leading: new IconButton(
-          icon: new Icon(Icons.keyboard_arrow_down,
-              size: ConfigSize.blockSizeHorizontal * 10,
-              color: Colors.black),
-          onPressed: () {
-            for(GlobalKey formKey in formKeyList){
-              if(formKey.currentState.validate()){
+            icon: new Icon(Icons.keyboard_arrow_down,
+                size: ConfigSize.blockSizeHorizontal * 10, color: Colors.black),
+            onPressed: () {
+              List<bool> _list = formKeyList.map((key) {
+               
+                  key.currentState.validate();
+                
+              }).toList();
+              if (_list.indexOf(false) == -1) {
                 Navigator.of(context).pop();
               }
-            }
-          }
-        ),
+            }),
       ),
       body: SingleChildScrollView(
         child: Align(

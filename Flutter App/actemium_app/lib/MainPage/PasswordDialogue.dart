@@ -1,20 +1,13 @@
-import 'package:actemium_app/MainPage/MainPageProvider.dart';
-import 'package:actemium_app/commandsPage/ScaleTransition.dart';
-import 'package:actemium_app/commandsPage/commandsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PasswordDialogue extends StatefulWidget {
-  final String text;
-  PasswordDialogue({
-    this.text
-  });
+  PasswordDialogue({Key key}) :super(key:key);
   @override
-  _PasswordDialogueState createState() => _PasswordDialogueState();
+  PasswordDialogueState createState() => PasswordDialogueState();
 }
 
-class _PasswordDialogueState extends State<PasswordDialogue> {
+class PasswordDialogueState extends State<PasswordDialogue> {
   final TextEditingController _controller = new TextEditingController();
   bool _validate = true;
 
@@ -29,8 +22,9 @@ class _PasswordDialogueState extends State<PasswordDialogue> {
     super.dispose();
   }
 
+  get validate => _validate;
+
   Widget build(BuildContext context) {
-    final provider = Provider.of<MainPageProvider>(context);
     return AlertDialog(
       title: Text("Mot de passe demandé"),
       content: TextField(
@@ -42,17 +36,14 @@ class _PasswordDialogueState extends State<PasswordDialogue> {
       actions: <Widget>[
         FlatButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context,false);
             },
             child: Text("Annuler")),
         FlatButton(
             onPressed: () {
               if (_controller.text == "1234") {
-                provider.resetProvider();
-                Navigator.push(
-                    context,
-                    ScaleRoute(
-                        page: CommandsPage(deviceName: this.widget.text)));
+                _validate=true;
+                Navigator.pop(context,true);
               } else {
                 setState(() {
                   _validate = false;

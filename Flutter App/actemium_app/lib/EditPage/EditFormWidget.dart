@@ -5,11 +5,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 class EditFormWidget extends StatefulWidget{
-
-  String text;
-  GlobalKey<FormState> formKey;
-  int formKeyIndex;
-   EditFormWidget({Key key, this.text, this.formKey, this.formKeyIndex})
+  final String text;
+  final GlobalKey<FormState> formKey;
+  final int formKeyIndex;
+   EditFormWidget({
+     Key key, this.text, this.formKey, this.formKeyIndex})
       : super(key: key);
 
   @override
@@ -23,6 +23,8 @@ class EditFormWidgetState extends State<EditFormWidget> {
       "[A-HJ-NP-TV-Z]{2}[\s-]{0,1}[0-9]{3}[\s-]{0,1}[A-HJ-NP-TV-Z]{2}|[0-9]{2,4}[\s-]{0,1}[A-Z]{1,3}[\s-]{0,1}[0-9]{2}");
 
   Widget build(BuildContext context) {
+    print(widget.formKey.toString());
+    print(widget.formKeyIndex);
     return Form(
       key: widget.formKey,
       child: TextFormField(

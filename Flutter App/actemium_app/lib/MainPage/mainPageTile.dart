@@ -22,27 +22,36 @@ class MainPageTile extends StatelessWidget {
 
   final Key myKey = UniqueKey();
 
-  
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
-    
 
     return InkWell(
       key: myKey,
-      onTap: () {
+      onTap: () async {
         /*when the card is selected we provide the key to the provider
         which it will rebuild the cards and change the state of the
         unamed one.*/
 
         provider.cardState = myKey;
         //bluetoothConnect(context);
-        showDialog(
+        var navigate = await showDialog(
             context: context,
             builder: (_) {
-              return PasswordDialogue(text: this.text,);
+              return PasswordDialogue();
             });
+
+        if (navigate) {
+          Future.delayed(Duration(seconds: 1), () {
+            //this methode will reset to null the provider but not notify the
+            //listener to avoid useless rebuild
+            provider.resetProvider();
+            Navigator.push(
+                context, ScaleRoute(page: CommandsPage(deviceName: this.text)));
+          });
+        } else {
+          provider.cardState = null;
+        }
       },
       child: Card(
         margin: EdgeInsets.symmetric(
