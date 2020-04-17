@@ -1,18 +1,24 @@
 import 'package:actemium_app/EditPage/EditFormWidget.dart';
 import 'package:actemium_app/ConfigSize.dart';
-import 'package:actemium_app/EditPage/EditTextfieldWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
-class EditPage extends StatelessWidget {
+class EditPage extends StatefulWidget {
   final String name;
   final String deviceID;
-  List<GlobalKey> formKeyList= new List<GlobalKey>(5);
-  List<int> formKeyListIndex = new List<int>(5);
 
   EditPage({Key key, @required this.name, @required this.deviceID})
       : super(key: key);
+
+  @override
+  _EditPageState createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
+  List<GlobalKey<FormState>> formKeyList= new List<GlobalKey<FormState>>(5);
+
+  List<int> formKeyListIndex = new List<int>(5);
 
   Widget build(BuildContext context) {
     ConfigSize().init(context);
@@ -26,7 +32,13 @@ class EditPage extends StatelessWidget {
           icon: new Icon(Icons.keyboard_arrow_down,
               size: ConfigSize.blockSizeHorizontal * 10,
               color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            for(GlobalKey formKey in formKeyList){
+              if(formKey.currentState.validate()){
+                Navigator.of(context).pop();
+              }
+            }
+          }
         ),
       ),
       body: SingleChildScrollView(
@@ -65,7 +77,7 @@ class EditPage extends StatelessWidget {
                   )),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: Text("$deviceID",
+                    child: Text("${widget.deviceID}",
                         style: TextStyle(color: Colors.blueGrey, fontSize: 20)),
                   )),
               Padding(
