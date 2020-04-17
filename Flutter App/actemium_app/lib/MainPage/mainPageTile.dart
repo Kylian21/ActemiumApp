@@ -1,4 +1,5 @@
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
+import 'package:actemium_app/MainPage/PasswordDialogue.dart';
 import 'package:actemium_app/commandsPage/ScaleTransition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ class MainPageTile extends StatelessWidget {
   final String text;
   final BluetoothDevice device;
   final FlutterBlue flutterBlue;
-  final Key myKey = UniqueKey();
 
   MainPageTile(
       {Key key,
@@ -20,9 +20,14 @@ class MainPageTile extends StatelessWidget {
       @required this.flutterBlue})
       : super(key: key);
 
+  final Key myKey = UniqueKey();
+
+  
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    
 
     return InkWell(
       key: myKey,
@@ -33,21 +38,20 @@ class MainPageTile extends StatelessWidget {
 
         provider.cardState = myKey;
         //bluetoothConnect(context);
-        Future.delayed(const Duration(milliseconds: 3000), () {
-          //this methode will reset to null the provider but not notify the
-          //listener to avoid useless
-          provider.resetProvider();
-          Navigator.push(
-              context,
-              ScaleRoute(page: CommandsPage(deviceName: this.text)));
-        });
+        showDialog(
+            context: context,
+            builder: (_) {
+              return PasswordDialogue(text: this.text,);
+            });
       },
       child: Card(
         margin: EdgeInsets.symmetric(
             horizontal: ConfigSize.blockSizeHorizontal * 3,
             vertical: ConfigSize.blockSizeVertical * 1.5),
-        shape:
-            ContinuousRectangleBorder(side: BorderSide(color: Colors.blueGrey,width: ConfigSize.blockSizeVertical * 0.5)),
+        shape: ContinuousRectangleBorder(
+            side: BorderSide(
+                color: Colors.blueGrey,
+                width: ConfigSize.blockSizeVertical * 0.5)),
         color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
         elevation: provider.cardState == myKey ? 6 : 2,
         child: Container(
@@ -56,8 +60,8 @@ class MainPageTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(
-                    left: ConfigSize.blockSizeHorizontal * 2),
+                padding:
+                    EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 2),
                 child: Icon(
                   Icons.airport_shuttle,
                   color: provider.cardState == myKey
@@ -67,7 +71,8 @@ class MainPageTile extends StatelessWidget {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 6),
+                  padding:
+                      EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 6),
                   child: Text(
                     this.text,
                     style: TextStyle(
@@ -89,13 +94,13 @@ class MainPageTile extends StatelessWidget {
 
   void bluetoothConnect(BuildContext context) async {
     try {
-      await device.connect();
-      print("Connection established with device {${device.name}}");
+      await this.device.connect();
+      print("Connection established with device {${this.device.name}}");
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (BuildContext context) =>
-                  CommandsPage(deviceName: text)));
+                  CommandsPage(deviceName: this.text)));
     } catch (e) {
       if (e.code != "alreadyConnected") {
         throw e;
