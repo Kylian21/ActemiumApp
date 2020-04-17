@@ -7,6 +7,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:actemium_app/CommandsPage/CommandsPage.dart';
 import '../ConfigSize.dart';
+import '../benne_icons.dart';
 
 class MainPageTile extends StatelessWidget {
   final String text;
@@ -72,7 +73,7 @@ class MainPageTile extends StatelessWidget {
                 padding:
                     EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 2),
                 child: Icon(
-                  Icons.airport_shuttle,
+                  Benne.bachee,
                   color: provider.cardState == myKey
                       ? Colors.grey[100]
                       : Colors.grey[800],
