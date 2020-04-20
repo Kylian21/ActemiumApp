@@ -23,6 +23,8 @@ class _MainPageState extends State<MainPage> {
   static final List<BluetoothDevice> deviceList = new List<BluetoothDevice>();
   final ScrollController myScrollController =
       new ScrollController(initialScrollOffset: 0.0);
+  RegExp immatriculationRegExp = RegExp(
+  '[A-HJ-NP-TV-Z]{2}[\s-]{0,1}[0-9]{3}[\s-]{0,1}[A-HJ-NP-TV-Z]{2}|[0-9]{2,4}[\s-]{0,1}[A-Z]{1,3}[\s-]{0,1}[0-9]{2}');
 
   @override
   void initState() {
@@ -157,6 +159,10 @@ class _MainPageState extends State<MainPage> {
     deviceList.clear();
     flutterBlue.scan(timeout: Duration(seconds: 5)).listen((scanResult) {
       if (deviceList.indexOf(scanResult.device) == -1) {
+        /*PARAMETRE USER ONLY : scan filter */
+        /*if(immatriculationRegExp.hasMatch(scanResult.device.name)){
+          deviceList.add(scanResult.device);
+        }*/
         deviceList.add(scanResult.device);
       }
       _streamController.sink.add(deviceList);

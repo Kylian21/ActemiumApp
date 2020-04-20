@@ -10,6 +10,7 @@ class PasswordDialogue extends StatefulWidget {
 class PasswordDialogueState extends State<PasswordDialogue> {
   final TextEditingController _controller = new TextEditingController();
   bool _validate = true;
+  RegExp pinCodeRegExp = RegExp(r'^(?:\d{4}|\d{6})$');
 
   @override
   void initState() {
@@ -27,11 +28,22 @@ class PasswordDialogueState extends State<PasswordDialogue> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Mot de passe demandé"),
-      content: TextField(
-        controller: _controller,
-        decoration: InputDecoration(
-            errorText: _validate ? "" : "Mot de passe invalide",
-            labelText: "Entrez votre mot de passe"),
+      content: Form(
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+          controller: _controller,
+          decoration: InputDecoration(
+              errorText: _validate ? "" : "Mot de passe invalide",
+              labelText: "Entrez votre mot de passe"),
+          validator: (value){
+            if(!pinCodeRegExp.hasMatch(value)){
+              return 'Le mot de passe n\'est pas sous forme de pin à 4 ou 6 chiffres';
+            }
+            else{
+              return '';
+            }
+          },
+        ),
       ),
       actions: <Widget>[
         FlatButton(
