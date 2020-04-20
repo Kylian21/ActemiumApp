@@ -60,12 +60,12 @@ class _MainPageState extends State<MainPage> {
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverAppBar(
+                    expandedHeight: ConfigSize.blockSizeVertical*15,
                     backgroundColor: Colors.white,
-                    expandedHeight: ConfigSize.blockSizeVertical * 15,
                     pinned: true,
                     actions: <Widget>[
                       IconButton(
-                        alignment: Alignment.bottomCenter,
+                        iconSize: ConfigSize.blockSizeVertical*5,
                         color: Colors.blueGrey,
                         icon: Icon(Icons.device_unknown),
                         onPressed: () {
@@ -74,6 +74,7 @@ class _MainPageState extends State<MainPage> {
                       )
                     ],
                     flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
                       title: FadeOnScroll(
                         scrollController: myScrollController,
                         fullOpacityOffset: 120,
@@ -81,13 +82,13 @@ class _MainPageState extends State<MainPage> {
                           "Appairage Bluetooth",
                           style: TextStyle(
                               color: Colors.grey[800],
-                              fontSize: ConfigSize.blockSizeVertical * 3,
+                              fontSize: ConfigSize.blockSizeVertical * 4,
                               fontWeight: FontWeight.w900,
                               fontStyle: FontStyle.italic,
                               fontFamily: 'Open Sans'),
                         ),
                       ),
-                      background: Image.asset('assets/images/BENALU.png'),
+                      background: Image.asset('assets/images/BENALU.png',alignment: Alignment.centerLeft),
                     ),
                   ),
                 ];
