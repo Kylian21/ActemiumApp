@@ -6,6 +6,7 @@ import 'package:actemium_app/commandsPage/CommandsInstruction.dart';
 import 'package:actemium_app/commandsPage/commandsPageProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:actemium_app/EditPage/EditPage.dart';
 import '../ConfigSize.dart';
@@ -14,7 +15,8 @@ import '../ConfigSize.dart';
 class CommandsPage extends StatelessWidget {
   //final BluetoothDevice device;
   final String deviceName;
-  BluetoothParameters bleParameters;
+  /*BluetoothParameters _parameters = new BluetoothParameters();
+  BluetoothCharacteristic _characteristic;*/
 
   CommandsPage({Key key, 
   @required this.deviceName,
@@ -24,8 +26,8 @@ class CommandsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /*this.bleParameters = new BluetoothParameters(device);
-    this.bleParameters.setServices();*/
+    //_characteristic = _parameters.getCharacteristicsFromService(this.device, Guid("0x0674"))[0];
+
     ConfigSize().init(context);
 
     return ChangeNotifierProvider(
@@ -53,6 +55,14 @@ class CommandsPage extends StatelessWidget {
           ),
           body: Stack(
             children: <Widget>[
+              /*StreamBuilder(
+                stream: _characteristic.value,
+                builder: (context,snapshot){
+                  AlertDialog(
+                    title: Text("Camion en mouvement"),
+                    content: Icon(Icons.warning,color: Colors.red,),
+                  );
+                }),*/
               CommandsCard(),
               CommandsIcon(),
               CommandsInstruction(),

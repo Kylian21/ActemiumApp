@@ -1,3 +1,4 @@
+import 'package:actemium_app/BluetoothParameters.dart';
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
 import 'package:actemium_app/MainPage/PasswordDialogue.dart';
 import 'package:actemium_app/commandsPage/ScaleTransition.dart';
@@ -26,6 +27,8 @@ class MainPageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MainPageProvider>(context);
+    BluetoothParameters _parameters = new BluetoothParameters();
+    
 
     return InkWell(
       key: myKey,
@@ -33,7 +36,7 @@ class MainPageTile extends StatelessWidget {
         /*when the card is selected we provide the key to the provider
         which it will rebuild the cards and change the state of the
         unamed one.*/
-
+        //_parameters.getCharacteristicsFromService(this.device,Guid("0xOFFDE"));
         provider.cardState = myKey;
         //bluetoothConnect(context);
         var navigate = await showDialog(
@@ -44,6 +47,7 @@ class MainPageTile extends StatelessWidget {
 
         if (navigate) {
           Future.delayed(Duration(seconds: 1), () {
+            
             //this methode will reset to null the provider but not notify the
             //listener to avoid useless rebuild
             provider.resetProvider();
