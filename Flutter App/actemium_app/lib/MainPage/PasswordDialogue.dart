@@ -1,16 +1,17 @@
+import 'package:actemium_app/ConfigSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PasswordDialogue extends StatefulWidget {
-  PasswordDialogue({Key key}) :super(key:key);
+  PasswordDialogue({Key key}) : super(key: key);
   @override
   PasswordDialogueState createState() => PasswordDialogueState();
 }
 
 class PasswordDialogueState extends State<PasswordDialogue> {
   final TextEditingController _controller = new TextEditingController();
-  bool _validate = true;
-  RegExp pinCodeRegExp = RegExp(r'^(?:\d{4}|\d{6})$');
+  final _formKey = new GlobalKey<FormState>();
+  RegExp pinCodeRegExp = RegExp(r'(^(?:\d{4}|\d{6})$)');
 
   @override
   void initState() {
@@ -23,24 +24,46 @@ class PasswordDialogueState extends State<PasswordDialogue> {
     super.dispose();
   }
 
-  get validate => _validate;
-
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Mot de passe demandé"),
+      title: Text(
+        "Mot de passe demandé",
+        style: TextStyle(
+            color: Colors.grey[800],
+            fontSize: ConfigSize.blockSizeVertical * 4,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+            fontFamily: 'Open Sans'),
+      ),
       content: Form(
-          child: TextFormField(
-            keyboardType: TextInputType.number,
+        key: _formKey,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
           controller: _controller,
           decoration: InputDecoration(
-              errorText: _validate ? "" : "Mot de passe invalide",
-              labelText: "Entrez votre mot de passe"),
-          validator: (value){
-            if(!pinCodeRegExp.hasMatch(value)){
-              return 'Le mot de passe n\'est pas sous forme de pin à 4 ou 6 chiffres';
-            }
-            else{
-              return '';
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey[300])),
+              errorStyle: TextStyle(
+                  color: Colors.red,
+                  fontSize: ConfigSize.blockSizeVertical * 2,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans'),
+              labelText: "Entrez votre mot de passe",
+              labelStyle: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: ConfigSize.blockSizeVertical * 2.5,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans')),
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Le mot de passe ne peut pas être nul';
+            } else if (!pinCodeRegExp.hasMatch(value)) {
+              return 'Erreur : 4 ou 6 chiffres';
+            } else {
+              return null;
             }
           },
         ),
@@ -48,21 +71,32 @@ class PasswordDialogueState extends State<PasswordDialogue> {
       actions: <Widget>[
         FlatButton(
             onPressed: () {
-              Navigator.pop(context,false);
+              Navigator.pop(context, false);
             },
-            child: Text("Annuler")),
+            child: Text(
+              "Annuler",
+              style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: ConfigSize.blockSizeVertical * 2.5,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans'),
+            )),
         FlatButton(
             onPressed: () {
-              if (_controller.text == "1234") {
-                _validate=true;
-                Navigator.pop(context,true);
-              } else {
-                setState(() {
-                  _validate = false;
-                });
+              if (_formKey.currentState.validate()) {
+                Navigator.pop(context, true);
               }
             },
-            child: Text("Valider"))
+            child: Text(
+              "Valider",
+              style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: ConfigSize.blockSizeVertical * 2.5,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Open Sans'),
+            ))
       ],
     );
   }
