@@ -46,11 +46,11 @@ class _EditPageState extends State<EditPage> {
             icon: new Icon(Icons.keyboard_arrow_down,
                 size: ConfigSize.blockSizeHorizontal * 10, color: Colors.black),
             onPressed: () {
-              List<bool> _list = formKeyList.map((key) {
-               
-                  key.currentState.validate();
-                
-              }).toList();
+              List<bool> _list = new List<bool>();
+              formKeyList.forEach((key) {
+                key.currentState.validate();
+                _list.add(key.currentState.validate());
+                });
               if (_list.indexOf(false) == -1) {
                 Navigator.of(context).pop();
               }
