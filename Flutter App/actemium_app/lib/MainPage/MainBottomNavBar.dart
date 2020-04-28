@@ -4,9 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+//This widget just display a text if the user has selected nothing
 class MyBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Consumer<MainPageProvider>(builder: (context, provider, _) {
+    return Consumer<MainPageProvider>(
+      //This Consumer listen the MainPageProvider and will rebuild if it state change.
+      //The value is in the instance of Provider : provider (in the builder)
+      builder: (context, provider, _) {
       if (provider.cardState == null) {
         return Container(
           color: Colors.grey[100],

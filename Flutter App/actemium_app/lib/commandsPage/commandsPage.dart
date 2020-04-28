@@ -13,10 +13,14 @@ import '../ConfigSize.dart';
 //import 'package:flutter_blue/flutter_blue.dart';
 
 class CommandsPage extends StatelessWidget {
-  //final BluetoothDevice device;
+  
   final String deviceName;
-  /*BluetoothParameters _parameters = new BluetoothParameters();
-  BluetoothCharacteristic _characteristic;*/
+  /*
+  # Those instances are used for dealing with Bluetooth device
+    final BluetoothDevice device;
+    BluetoothParameters _parameters = new BluetoothParameters();
+    BluetoothCharacteristic _characteristic;
+  */
 
   CommandsPage({Key key, 
   @required this.deviceName,
@@ -26,7 +30,7 @@ class CommandsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //_characteristic = _parameters.getCharacteristicsFromService(this.device, Guid("0x0674"))[0];
+    //_characteristic = _parameters.getCharacteristicsFromService(this.device, Guid("Choose an UUID"))[0];
 
     ConfigSize().init(context);
 

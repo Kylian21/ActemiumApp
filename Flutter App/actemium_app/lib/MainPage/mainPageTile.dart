@@ -35,7 +35,8 @@ class MainPageTile extends StatelessWidget {
       onTap: () async {
         /*when the card is selected we provide the key to the provider
         which it will rebuild the cards and change the state of the
-        unamed one.*/
+        named one.*/
+        
         //_parameters.getCharacteristicsFromService(this.device,Guid("0xOFFDE"));
         provider.cardState = myKey;
         //bluetoothConnect(context);

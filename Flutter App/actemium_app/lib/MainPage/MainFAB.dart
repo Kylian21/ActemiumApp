@@ -15,6 +15,9 @@ class MyFAB extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Consumer<MainPageProvider>(builder: (context, provider, _) {
+      //The consumer Class is a listener of MainPage provider and
+      //will rebuild whenever the provider change is state. We access the value of the provider
+      //with the instance of provider in the builder.
       if (provider.cardState != null) {
         return FloatingActionButton.extended(
           backgroundColor: Colors.blueGrey,
@@ -54,6 +57,7 @@ class MyFAB extends StatelessWidget {
                   return FloatingActionButton.extended(
                     onPressed: () {
                       provider.cardState = null;
+                      //this methode have to be called from the mainPage class
                       //checkBluetooth();
                     },
                     label: Text(
