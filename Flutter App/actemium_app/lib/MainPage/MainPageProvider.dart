@@ -8,15 +8,15 @@ class MainPageProvider with ChangeNotifier{
   //if the _cardKey is not null : a card is selected, this one is colored in bluegrey and the 
   //other ones are in grey.
 
-  Key _cardKey;
+  int _cardIndex;
   
-  Key get cardState => _cardKey;
+  int get cardState => _cardIndex;
 
-  set cardState(Key newValue){
-    _cardKey = newValue;
+  set cardState(int newValue){
+    _cardIndex = newValue;
     //When this methode is called, it will notify the listener through Consumer class or
     //Provider of context instance.
     notifyListeners();
   }
-   void resetProvider() => _cardKey = null;
+   void resetProvider() => _cardIndex = null;
 }

@@ -14,15 +14,17 @@ class MainPageTile extends StatelessWidget {
   final String text;
   final BluetoothDevice device;
   final FlutterBlue flutterBlue;
+  final int index;
 
   MainPageTile(
       {Key key,
       @required this.text,
       @required this.device,
-      @required this.flutterBlue})
+      @required this.flutterBlue,
+      @required this.index
+      })
       : super(key: key);
 
-  final Key myKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +33,13 @@ class MainPageTile extends StatelessWidget {
     
 
     return InkWell(
-      key: myKey,
       onTap: () async {
         /*when the card is selected we provide the key to the provider
         which it will rebuild the cards and change the state of the
         named one.*/
         
         //_parameters.getCharacteristicsFromService(this.device,Guid("0xOFFDE"));
-        provider.cardState = myKey;
+        provider.cardState = index;
         //bluetoothConnect(context);
         var navigate = await showDialog(
             context: context,
@@ -67,8 +68,8 @@ class MainPageTile extends StatelessWidget {
             side: BorderSide(
                 color: Colors.blueGrey,
                 width: ConfigSize.blockSizeVertical * 0.5)),
-        color: provider.cardState == myKey ? Colors.blueGrey : Colors.white,
-        elevation: provider.cardState == myKey ? 6 : 2,
+        color: provider.cardState == index ? Colors.blueGrey : Colors.white,
+        elevation: provider.cardState == index ? 6 : 2,
         child: Container(
           height: ConfigSize.blockSizeHorizontal * 24,
           child: Row(
@@ -79,7 +80,7 @@ class MainPageTile extends StatelessWidget {
                     EdgeInsets.only(left: ConfigSize.blockSizeHorizontal * 2),
                 child: Icon(
                   Benne.bachee,
-                  color: provider.cardState == myKey
+                  color: provider.cardState == index
                       ? Colors.grey[100]
                       : Colors.grey[800],
                   size: ConfigSize.blockSizeVertical * 8,

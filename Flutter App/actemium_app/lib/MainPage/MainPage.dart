@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:actemium_app/MainPage/MainPageProvider.dart';
 import 'package:actemium_app/MainPage/MainBottomNavBar.dart';
 import 'package:actemium_app/MainPage/MainFAB.dart';
-import 'package:actemium_app/MainPage/MainPageTile.dart';
 import 'package:actemium_app/ConfigSize.dart';
+import 'package:actemium_app/MainPage/mainPageTile.dart';
 import 'package:actemium_app/Tools/FadeOnScroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  
   /*
   # This instance of FlutterBlue allow you to use the Bluetooth methode
      FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -119,17 +118,19 @@ class _MainPageState extends State<MainPage> {
                     initialData: [],
                     builder: (BuildContext context,
                         AsyncSnapshot<List<BluetoothDevice>> snapshot) {
-                          //in this widget we get back the devices list, previouly sended by
-                          //the streamController.
+                      //in this widget we get back the devices list, previouly sended by
+                      //the streamController.
                       return !snapshot.hasData
                           ? Container()
                           : ListView.builder(
                               itemCount: 15, //snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return MainPageTile(
-                                    text: "WH - 00$index - TH",
-                                    device: null,
-                                    flutterBlue: null);
+                                  text: "WH - 00$index - TH",
+                                  device: null,
+                                  flutterBlue: null,
+                                  index: index,
+                                );
                                 //replace the Widget above by the one underneath when you use bluetooth
                                 /*return MainPageTile( 
                                   text: snapshot.data[index].name, 
