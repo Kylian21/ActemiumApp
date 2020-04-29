@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:actemium_app/MainPage/MainPageProvider.dart';
-import 'package:actemium_app/MainPage/MainBottomNavBar.dart';
-import 'package:actemium_app/MainPage/MainFAB.dart';
-import 'package:actemium_app/ConfigSize.dart';
-import 'package:actemium_app/MainPage/mainPageTile.dart';
-import 'package:actemium_app/Tools/FadeOnScroll.dart';
+
+import 'package:actemium_app_user/lib/ConfigSize.dart';
+import 'package:actemium_app_user/lib/MainPage/MainBottomNavBar.dart';
+import 'package:actemium_app_user/lib/MainPage/MainFAB.dart';
+import 'package:actemium_app_user/lib/MainPage/MainPageProvider.dart';
+import 'package:actemium_app_user/lib/MainPage/mainPageTile.dart';
+import 'package:actemium_app_user/lib/Tools/FadeOnScroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -187,8 +188,10 @@ class _MainPageState extends State<MainPage> {
     deviceList.clear();
     flutterBlue.scan(timeout: Duration(seconds: 5)).listen((scanResult) {
       if (deviceList.indexOf(scanResult.device) == -1) {
+        /*PARAMETRE USER ONLY : scan filter */
+        /*if(immatriculationRegExp.hasMatch(scanResult.device.name)){
           deviceList.add(scanResult.device);
-        
+        }*/
         deviceList.add(scanResult.device);
       }
       //When the devices are loaded in the deviceList, we send it via StreamController
